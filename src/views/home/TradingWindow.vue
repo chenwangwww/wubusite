@@ -1,0 +1,197 @@
+<template>
+  <div class="w-full md:w-[30.25rem] shadow-[0_4px_20px_0px_rgba(0,0,0,0.1)]">
+    <div class="flex">
+      <button
+        class="relative font-[700] w-1/2 md:w-[15.125rem] h-[3.75rem] md:h-[5rem] rounded-t-[1.25rem] text-[1.25rem] md:text-[1.75rem]"
+        :class="isSellingMode ? 'text-black bg-white' : 'text-white bg-[#FF7545]'" @click="toggleMode(false)">
+        Buy
+      </button>
+      <button
+        class="relative font-[700] w-1/2 md:w-[15.125rem] h-[3.75rem] md:h-[5rem] rounded-t-[1.25rem] text-[1.25rem] md:text-[1.75rem]"
+        :class="isSellingMode ? 'text-white bg-[#FF7545]' : 'text-black bg-white'" @click="toggleMode(true)">
+        Sell
+      </button>
+    </div>
+    <div class="w-full bg-[#FF7545] px-[1.25rem] md:px-[2.625rem] py-[1.25rem] md:py-[1.75rem]">
+      <form>
+        <p class="mb-[1rem] font-[500] text-white text-[1rem] md:text-[1.125rem]">
+          {{ isSellingMode ? 'I want to Sell' : 'I want to Buy' }}
+        </p>
+
+        <!-- From Currency Input -->
+        <div ref="showFromDropdownRef"
+          class="h-[3rem] md:h-[3.75rem] border rounded-[0.75rem] md:rounded-[1.25rem] bg-white flex items-center justify-between px-[1rem] md:px-[1.25rem] mb-[1rem] md:mb-[1.75rem] relative">
+          <input type="number" v-model="fromAmount" placeholder="10-1000000"
+            class="w-1/2 text-[0.875rem] md:text-base outline-none" @input="calculateExchange" />
+          <div class="flex items-center cursor-pointer" @click="toggleFromDropdown">
+            <img :src="getCurrencyIcon(fromCurrency)" alt="" class="w-[1rem] md:w-[1.25rem] h-[1rem] md:h-[1.25rem]">
+            <div class="text-[0.75rem] text-[#A1A1AA] ml-[0.5rem] mr-[0.5rem] md:mr-[1.125rem]">{{ fromCurrency }}</div>
+            <img src="@/assets/icons/arrow.svg" alt="" class="w-[0.5rem] md:w-[0.56rem] h-[0.375rem]">
+          </div>
+          <!-- From Currency Dropdown -->
+          <div v-if="showFromDropdown" 
+            class="absolute bg-white top-full right-0 py-[0.375rem] shadow-2xl z-50 w-full md:w-auto">
+            <div v-for="currency in availableFromCurrencies" :key="currency"
+              class="flex items-center hover:bg-[#F4F4F5] text-[#202326] cursor-pointer py-[0.375rem] px-[1rem] md:px-[1.25rem]"
+              @click="selectFromCurrency(currency)">
+              <img :src="getCurrencyIcon(currency)" alt="" class="w-[1rem] md:w-[1.25rem] h-[1rem] md:h-[1.25rem]">
+              <div class="text-[0.75rem] text-[#A1A1AA] ml-[0.5rem] mr-[0.5rem] md:mr-[1.125rem]">{{ currency }}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- To Currency Input -->
+        <p class="mb-[1rem] font-[500] text-white text-[1rem] md:text-[1.125rem]">I will receive</p>
+        <div ref="showToDropdownRef"
+          class="h-[3rem] md:h-[3.75rem] border rounded-[0.75rem] md:rounded-[1.25rem] bg-white flex items-center justify-between px-[1rem] md:px-[1.25rem] mb-[1rem] md:mb-[1.75rem] relative">
+          <input type="number" v-model="toAmount" placeholder="10-1000000"
+            class="w-1/2 text-[0.875rem] md:text-base outline-none" readonly />
+          <div class="flex items-center cursor-pointer" @click="toggleToDropdown">
+            <img :src="getCurrencyIcon(toCurrency)" alt="" class="w-[1rem] md:w-[1.25rem] h-[1rem] md:h-[1.25rem]">
+            <div class="text-[0.75rem] text-[#A1A1AA] ml-[0.5rem] mr-[0.5rem] md:mr-[1.125rem]">{{ toCurrency }}</div>
+            <img src="@/assets/icons/arrow.svg" alt="" class="w-[0.5rem] md:w-[0.56rem] h-[0.375rem]">
+          </div>
+          <!-- To Currency Dropdown -->
+          <div v-if="showToDropdown" 
+            class="absolute bg-white top-full right-0 py-[0.375rem] shadow-2xl z-50 w-full md:w-auto">
+            <div v-for="currency in availableToCurrencies" :key="currency"
+              class="flex items-center hover:bg-[#F4F4F5] text-[#202326] cursor-pointer py-[0.375rem] px-[1rem] md:px-[1.25rem]"
+              @click="selectToCurrency(currency)">
+              <img :src="getCurrencyIcon(currency)" alt="" class="w-[1rem] md:w-[1.25rem] h-[1rem] md:h-[1.25rem]">
+              <div class="text-[0.75rem] text-[#A1A1AA] ml-[0.5rem] mr-[0.5rem] md:mr-[1.125rem]">{{ currency }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-[1.5rem] md:mt-[2.8rem] mb-[0.75rem] text-white text-[0.75rem] md:text-[0.8rem] font-[500]">
+          Expected price：{{ exchangeRate }}
+        </div>
+
+        <button type="button"
+          class="w-full text-white bg-black rounded-[0.75rem] md:rounded-[1rem] h-[3rem] md:h-[3.75rem] text-[0.875rem] md:text-base"
+          @click="showAlert = true">
+          Confirm
+        </button>
+      </form>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+
+// 导入所有需要的图标
+import UsdIcon from '@/assets/icons/usd.svg';
+import UsdtIcon from '@/assets/icons/usdt.svg';
+import UsdcIcon from '@/assets/icons/usdc.svg';
+
+const isSellingMode = ref(true);
+const fromAmount = ref('');
+const toAmount = ref('');
+const fromCurrency = ref('USDT');
+const toCurrency = ref('USD');
+const showFromDropdown = ref(false);
+const showToDropdown = ref(false);
+const showFromDropdownRef = ref(null);
+const showToDropdownRef = ref(null);
+const showAlert = ref(false);
+
+const exchangeRates = {
+  'USD_USDT': 1.001,
+  'USDT_USD': 0.999,
+  'USD_USDC': 1.001,
+  'USDC_USD': 0.999,
+  'USDT_USDC': 1,
+  'USDC_USDT': 1
+};
+
+const availableFromCurrencies = ['USD', 'USDT', 'USDC'];
+
+const availableToCurrencies = computed(() => {
+  return availableFromCurrencies.filter(c => c !== fromCurrency.value);
+});
+
+const exchangeRate = computed(() => {
+  const rate = exchangeRates[`${fromCurrency.value}_${toCurrency.value}`] || 1;
+  return `1 ${fromCurrency.value} = ${rate} ${toCurrency.value}`;
+});
+
+const toggleMode = (isSelling) => {
+  isSellingMode.value = isSelling;
+  fromAmount.value = '';
+  toAmount.value = '';
+  updateDefaultCurrencies();
+};
+
+const updateDefaultCurrencies = () => {
+  if (isSellingMode.value) {
+    fromCurrency.value = 'USDT';
+    toCurrency.value = 'USD';
+  } else {
+    fromCurrency.value = 'USD';
+    toCurrency.value = 'USDT';
+  }
+};
+
+const toggleFromDropdown = () => {
+  showFromDropdown.value = !showFromDropdown.value;
+  showToDropdown.value = false;
+  
+};
+
+const toggleToDropdown = () => {
+  showToDropdown.value = !showToDropdown.value;
+  showFromDropdown.value = false;
+};
+
+const selectFromCurrency = (currency) => {
+  fromCurrency.value = currency;
+  showFromDropdown.value = false;
+  if (toCurrency.value === currency) {
+    toCurrency.value = availableToCurrencies.value[0];
+  }
+  calculateExchange();
+};
+
+const selectToCurrency = (currency) => {
+  toCurrency.value = currency;
+  showToDropdown.value = false;
+  calculateExchange();
+};
+
+// 修改后的图标获取方法
+const getCurrencyIcon = (currency) => {
+  switch (currency.toLowerCase()) {
+    case 'usd':
+      return UsdIcon;
+    case 'usdt':
+      return UsdtIcon;
+    case 'usdc':
+      return UsdcIcon;
+    default:
+      return UsdIcon; // 默认返回USD图标
+  }
+};
+
+const calculateExchange = () => {
+  if (!fromAmount.value) {
+    toAmount.value = '';
+    return;
+  }
+  const rate = exchangeRates[`${fromCurrency.value}_${toCurrency.value}`] || 1;
+  toAmount.value = (parseFloat(fromAmount.value) * rate).toFixed(2);
+};
+
+onMounted(() => {
+  updateDefaultCurrencies();
+
+  document.addEventListener('click', (e) => {
+    if (showFromDropdownRef.value && !showFromDropdownRef.value.contains(e.target)) {
+      showFromDropdown.value = false;
+    }
+    if (showToDropdownRef.value && !showToDropdownRef.value.contains(e.target)) {
+      showToDropdown.value = false;
+    }
+  });
+});
+</script>
