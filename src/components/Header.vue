@@ -8,12 +8,12 @@
         <RouterLink to="/"><img src="@/assets/images/logo.png" alt="" class="w-[9.25rem]"></RouterLink>
         <div><RouterLink to="/">HOME</RouterLink></div>
         <div><RouterLink to="/aboutus">ABOUT US</RouterLink></div>
-        <div><a>SECURITY</a></div>
-        <div><a>LEARN</a></div>
+        <div><RouterLink to="/security">SECURITY</RouterLink></div>
+        <div><RouterLink to="/learn">LEARN</RouterLink></div>
       </div>
       <div class="font-[700] text-[1.125rem] flex gap-x-[1.875rem] items-center relative">
-        <div><a>LOGIN</a></div>
-        <div class="text-white bg-[#FF7545] py-[0.5rem] px-[1.875rem] rounded-[6.25rem]"><a>REGISTER</a></div>
+        <div><RouterLink to="/login">LOGIN</RouterLink></div>
+        <div class="text-white bg-[#FF7545] py-[0.5rem] px-[1.875rem] rounded-[6.25rem]"><RouterLink to="/register">REGISTER</RouterLink></div>
         <img src="@/assets/icons/globals.svg" alt="" class="w-[1.375rem] h-[1.375rem]" @click="toggleLangMenu">
         <div class="absolute bg-white top-full right-0 py-[0.375rem] shadow-2xl" v-show="showLangMenu">
           <div class="flex items-center px-[1rem] gap-x-[1rem] hover:bg-[#F4F4F5] text-[#202326] cursor-pointer"
@@ -32,16 +32,16 @@
         <a> <img src="@/assets/images/logo.png" alt="" class="w-[9.25rem]" v-show="showLogo"></a>
       </div>
       <div class="font-[700] text-[1rem] flex gap-x-[1rem] items-center relative">
-        <div v-show="showLogin"><a>LOGIN</a></div>
-        <div class="text-white bg-[#FF7545] py-[0.5rem] px-[1.25rem] rounded-[6.25rem]"><a>REGISTER</a></div>
+        <div v-show="showLogin"><RouterLink to="/login">LOGIN</RouterLink></div>
+        <div class="text-white bg-[#FF7545] py-[0.5rem] px-[1.25rem] rounded-[6.25rem]"><RouterLink to="/register">REGISTER</RouterLink></div>
         <img src="@/assets/icons/menu.svg" alt="" class="w-[1.5rem] h-[1.5rem]" @click="toggleMobileMenu">
       </div>
       <div v-show="showMobileMenu"
         class="absolute top-full left-0 w-full bg-white py-[2rem] px-[1.5rem] text-[#2F2F2F] font-[700] text-[1rem]">
-        <div class="mb-[1.5rem]"><a>HOME</a></div>
-        <div class="mb-[1.5rem]"><a>ABOUT US</a></div>
-        <div class="mb-[1.5rem]"><a>SECURITY</a></div>
-        <div class="mb-[1.5rem]"><a>LEARN</a></div>
+        <div class="mb-[1.5rem]"><RouterLink to="/">HOME</RouterLink></div>
+        <div class="mb-[1.5rem]"><RouterLink to="/aboutus">ABOUT US</RouterLink></div>
+        <div class="mb-[1.5rem]"><RouterLink to="/security">SECURITY</RouterLink></div>
+        <div class="mb-[1.5rem]"><RouterLink to="/learn">LEARN</RouterLink></div>
 
         <div class="flex items-center justify-between mb-[1.5rem]" @click="toggleMobileLangs">
           <div>Language</div>

@@ -1,0 +1,872 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Wubu- Public Disclosures.docx</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Murecho:wght@100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Zen+Kaku+Gothic+New&display=swap"
+    rel="stylesheet">
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            text-indent: 0;
+        }
+        body {
+      font-family: "Work Sans", serif;
+    }
+
+        .p,
+        p {
+            color: black;
+            
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 11pt;
+            margin: 0pt;
+        }
+
+        .s1 {
+            color: black;
+            
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 11pt;
+        }
+
+        .s2 {
+            color: black;
+            
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 11pt;
+        }
+
+        .a,
+        a {
+            color: black;
+            
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 11pt;
+        }
+
+        .s4 {
+            color: #0462C1;
+            
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 11pt;
+        }
+
+        .s6 {
+            color: black;
+            
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 11pt;
+        }
+
+        .s7 {
+            color: black;
+            
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 10.5pt;
+        }
+
+        .s8 {
+            color: black;
+            
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 11.5pt;
+        }
+
+        .s9 {
+            color: black;
+            
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 11pt;
+        }
+
+        .s10 {
+            color: black;
+            
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 12pt;
+        }
+
+        .s11 {
+            color: black;
+            
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 12pt;
+        }
+
+        li {
+            display: block;
+        }
+
+        #l1 {
+            padding-left: 0pt;
+            counter-reset: c1 1;
+        }
+
+        #l1>li>*:first-child:before {
+            counter-increment: c1;
+            content: counter(c1, decimal)". ";
+            color: black;
+            
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 11pt;
+        }
+
+        #l1>li:first-child>*:first-child:before {
+            counter-increment: c1 0;
+        }
+
+        #l2 {
+            padding-left: 0pt;
+            counter-reset: c2 1;
+        }
+
+        #l2>li>*:first-child:before {
+            counter-increment: c2;
+            content: counter(c1, decimal)"." counter(c2, decimal)" ";
+            color: black;
+            
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 11pt;
+        }
+
+        #l2>li:first-child>*:first-child:before {
+            counter-increment: c2 0;
+        }
+
+        #l3 {
+            padding-left: 0pt;
+            counter-reset: d1 2;
+        }
+
+        #l3>li>*:first-child:before {
+            counter-increment: d1;
+            content: counter(d1, lower-latin)". ";
+            color: black;
+            
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            font-size: 11pt;
+        }
+
+        #l3>li:first-child>*:first-child:before {
+            counter-increment: d1 0;
+        }
+
+        table,
+        tbody {
+            vertical-align: top;
+            overflow: visible;
+        }
+
+        
+        .search-outer-wubu {
+          display: flex;
+          justify-content: right;
+          margin-top: 10px;
+        }
+
+         /* 整体容器 */
+         .search-container-wubu {
+            width: 320px;
+            display: inline-flex;
+            align-items: center;
+            background-color: #FFFBF8; /* 输入框背景色 */
+            border-radius: 25px; /* 圆角 */
+            overflow: hidden; /* 防止子元素溢出 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 阴影 */
+            margin-left: auto; /* 居右显示 */
+            border: 1px solid #FF7545;
+        }
+
+        /* 输入部分 */
+        .search-input-wubu {
+            border: none;
+            outline: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            background-color: transparent; /* 透明背景 */
+            width: 255px; /* 输入框宽度 */
+        }
+
+        /* 按钮部分 */
+        .search-button-wubu {
+            border: none;
+            outline: none;
+            background-color: #FF7545; /* 按钮背景色 */
+            color: white; /* 图标颜色 */
+            padding: 10px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease; /* 按钮 hover 动画 */
+        }
+
+        /* 按钮 hover 效果 */
+        .search-button-wubu:hover {
+            /* background-color: #0056b3; */
+        }
+
+        .highlight-wubu {
+            background-color: yellow;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+
+<body οncοntextmenu='return false' onselectstart='return false' οnselect='document.selection.empty()'
+    οncοpy='document.selection.empty()' onbeforecopy='return false' οnmοuseup='document.selection.empty()'>
+
+    <div class="search-outer-wubu">
+        <div class="search-container-wubu">
+          <!-- 输入部分 -->
+          <input id="search-box-wubu" type="text" class="search-input-wubu" placeholder="Enter keywords to search" />
+          <!-- 按钮部分 -->
+          <button class="search-button-wubu">
+            <img id="search-btn-wubu" src="../icons/search.svg" alt="" />
+          </button>
+        </div>
+      </div>
+      <div id="content-wubu">
+
+    <p style="text-indent: 0pt;text-align: left;"><br /></p>
+    <p style="padding-top: 12pt;padding-left: 11pt;text-indent: 0pt;text-align: center;font-weight: 600;">PUBLIC DISCLOSURES</p>
+    <p style="text-indent: 0pt;text-align: left;"><br /></p>
+    <p style="padding-left: 24pt;text-indent: 22pt;line-height: 108%;text-align: justify;">WUBU FZCO (“Wubu”) provides
+        ‘Broker Dealer Services’ for virtual assets and is licensed by the Virtual Assets Regulatory Authority (“VARA”)
+        in Dubai, United Arab Emirates. These public disclosures (“Public Disclosures”) have been developed for Wubu.
+        These Public Disclosures are reviewed annually, unless there is a change in regulation or Wubu’s business that
+        requires to implement an earlier update.</p>
+    <p style="padding-top: 3pt;text-indent: 0pt;text-align: left;"><br /></p>
+    <ol id="l1">
+        <li data-list-text="1.">
+            <p style="padding-left: 23pt;text-indent: -17pt;text-align: left;"><span class="s1"
+                    style=" font-weight: 600;">LICENSE DETAILS </span></p>
+            <p style="padding-left: 24pt;text-indent: 22pt;line-height: 108%;text-align: justify;"><span class="p">Wubu is applying for a Virtual Asset Service Provider (“VASP”) license from VARA.</p>
+            <p style="padding-top: 3pt;text-indent: 0pt;text-align: left;"><br /></p>
+        </li>
+        <li data-list-text="2.">
+            <p style="padding-left: 23pt;text-indent: -17pt;text-align: left;"><span class="s1"
+                    style=" font-weight: 600;">CONFLICT OF INTEREST </span></p>
+            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            <p style="padding-left: 24pt;text-indent: 22pt;line-height: 108%;text-align: justify;">Wubu is committed to
+                conducting its business according to the principle that it must manage any conflicts of interest
+                appropriately. At present there are no actual or potential, identified conflicts of interest arising out
+                of Wubu’s Broker Dealer Services. Wubu has and will continue to identify potential conflicts of interest
+                on all fronts, including those arising out of its outsourcing arrangements with group entities. Wubu has
+                put in place internal policies, mechanisms and guardrails to ensure that no actual conflicts arise or
+                are adequately managed should they arise.</p>
+            <p style="padding-top: 3pt;text-indent: 0pt;text-align: left;"><br /></p>
+        </li>
+        <li data-list-text="3.">
+            <p style="padding-left: 23pt;text-indent: -17pt;text-align: left;"><span class="s1"
+                    style=" font-weight: 600;">PRIVACY </span></p>
+            <p style="padding-left: 24pt;text-indent: 22pt;line-height: 108%;text-align: justify;"><a
+                    href="http://www.wubu.com/pp" class="a" target="_blank">Wubu appreciates you trusting us with your
+                    personal data. We are committed to protecting your privacy. For more details on how we collect and
+                    process your personal data, you can access our Privacy Policy at https://</a><a
+                    href="http://www.wubu.com/pp" target="_blank">www.wubu.com/pp.</a></p>
+        </li>
+        <li data-list-text="4.">
+            <p style="padding-top: 2pt;padding-left: 23pt;text-indent: -17pt;text-align: left;"><span class="s1"
+                    style=" font-weight: 600;">COMPLAINTS AND WHISTLEBLOWING </span></p>
+            <ol id="l2">
+                <li data-list-text="4.1">
+                    <p style="padding-left: 24pt;text-indent: -18pt;line-height: 108%;text-align: justify;"><a
+                            href="mailto:help@wubu.com" class="a" target="_blank">Complaints: Wubu is committed to
+                            promptly, fairly, consistently and efficiently resolving all complaints received by clients
+                            and/or other stakeholders. Wubu views complaints as an opportunity to continually improve
+                            the quality of its offerings. To that end, Wubu has formulated and implemented a
+                            comprehensive complaint handling procedure. If you seek to make any complaints, you can
+                            write to us at </a><a href="http://www.wubu.com/help" class="a"
+                            target="_blank">help@wubu.com or fill out this form at https://</a><a
+                            href="http://www.wubu.com/complaint" class="a" target="_blank">www.wubu.com/help. For
+                            further details on our complaints handling procedure and policy, you can read our complaints
+                            handling policy at https://</a><a href="http://www.wubu.com/complaint"
+                            target="_blank">www.wubu.com/complaint.</a></p>
+                    <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br /></p>
+                </li>
+                <li data-list-text="4.2">
+                    <p class="s4" style="padding-left: 24pt;text-indent: -18pt;line-height: 108%;text-align: justify;">
+                        <a href="mailto:help@wubu.com" class="a" target="_blank">Whistleblowing: Wubu strives to
+                            maintain the highest standards of integrity, accountability, and transparency, by being
+                            responsive to all employees and stakeholders, and treating its employees with respect. Wubu
+                            also demonstrates commitment to its own policies and applicable laws and regulations. To
+                            facilitate such ethic in the organization, Wubu has formulated a whistleblowing mechanism to
+                            enable voicing of concerns in a responsible and effective manner. For further details on our
+                            whistleblowing policy, you can read our whistleblowing policy on the Company’s website. If
+                            you seek to raise any concerns, you can write to us at </a><span
+                            style=" color: #0462C1; font-style: normal; font-weight: normal; text-decoration: underline; font-size: 11pt;">help@wubu.com</span>
+                        <a href="mailto:service@wubu.com" class="a" target="_blank">anonymously. You can also write to
+                        </a><span
+                            style=" color: #0462C1; font-style: normal; font-weight: normal; text-decoration: underline; font-size: 11pt;">service@wubu.com</span>
+                        <span style=" color: #000;">for a copy of our whistleblowing policy.</span>
+                    </p>
+                    <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                </li>
+            </ol>
+        </li>
+        <li data-list-text="5.">
+            <p style="padding-left: 23pt;text-indent: -17pt;text-align: left;"><span class="s1"
+                    style=" font-weight: 600;">RISK </span></p>
+            <p style="padding-left: 24pt;text-indent: 22pt;line-height: 108%;text-align: justify;"><a
+                    href="http://www.wubu.com/rd" class="a" target="_blank">Virtual assets and their transactions are
+                    subject to several risks, including but not limited to market risks, credit risks, liquidity risks,
+                    and technology risks. Please read our detailed Risk Disclosure Statement at
+                    https://</a>www.wubu.com/rd for more information on the risks associated with virtual asset.</p>
+            <p style="padding-top: 3pt;text-indent: 0pt;text-align: left;"><br /></p>
+        </li>
+        <li data-list-text="6.">
+            <p style="padding-left: 23pt;text-indent: -17pt;text-align: left;"><span class="s1"
+                    style=" font-weight: 600;">SERVICES </span></p>
+            <p style="padding-left: 24pt;text-indent: 22pt;line-height: 108%;text-align: justify;">Wubu provides Broker
+                Dealer Services in relation to <span style=" color: #131312;">fiat-referenced virtual assets, namely USD
+                    Coin (USDC), USD Tether (USDT), USD Binance (BUSD) (“Virtual Assets”). Wubu does so by
+                </span>arranging orders for the purchase and sale of Virtual Assets between two entities or persons;
+                soliciting or accepting orders for Virtual Assets by accepting fiat currency or other Virtual Assets for
+                such orders; and entering into virtual asset transactions as a dealer on behalf of an entity for its own
+                account (collectively the “Services”).</p>
+            <p style="padding-top: 7pt;padding-left: 24pt;text-indent: 22pt;line-height: 108%;text-align: justify;">The
+                list of Virtual Assets and Services offered by Wubu is constantly evolving and if we add, modify, amend
+                or otherwise change a Service, or amend the list of supported Virtual Assets, in whole or in part, we
+                will update the website accordingly. Currently Wubu trades in the Virtual Assets as detailed below:</p>
+            <table style="border-collapse:collapse;margin-left:24.5pt" cellspacing="0">
+                <tr style="height:50pt">
+                    <td style="width:35pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        bgcolor="#D9D9D9">
+                        <p class="s6" style="padding-top: 2pt;text-indent: 0pt;text-align: right;">Sr. no.</p>
+                    </td>
+                    <td style="width:58pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        bgcolor="#D9D9D9">
+                        <p class="s6"
+                            style="padding-top: 2pt;padding-left: 9pt;padding-right: 4pt;text-indent: -4pt;text-align: center;">
+                            Virtual Asset and symbol</p>
+                    </td>
+                    <td style="width:61pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        bgcolor="#D9D9D9">
+                        <p class="s6"
+                            style="padding-top: 2pt;padding-left: 22pt;padding-right: 8pt;text-indent: -8pt;text-align: left;">
+                            Issuance Date</p>
+                    </td>
+                    <td style="width:87pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        bgcolor="#D9D9D9">
+                        <p class="s7"
+                            style="padding-top: 1pt;padding-left: 11pt;padding-right: 5pt;text-indent: 0pt;text-align: center;">
+                            Market capitalisation and fully diluted</p>
+                        <p class="s7" style="padding-left: 5pt;text-indent: 0pt;line-height: 11pt;text-align: center;">
+                            value</p>
+                    </td>
+                    <td style="width:104pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        bgcolor="#D9D9D9">
+                        <p class="s7" style="padding-top: 2pt;padding-left: 13pt;text-indent: 0pt;text-align: left;">
+                            Circulating supply</p>
+                    </td>
+                    <td style="width:73pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        bgcolor="#D9D9D9">
+                        <p class="s7"
+                            style="padding-top: 2pt;padding-left: 8pt;padding-right: 3pt;text-indent: 0pt;text-align: center;">
+                            Date of last independent smart</p>
+                        <p class="s7" style="padding-right: 3pt;text-indent: 0pt;line-height: 12pt;text-align: center;">
+                            contract audit</p>
+                    </td>
+                    <td style="width:63pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        bgcolor="#D9D9D9">
+                        <p class="s7" style="padding-top: 2pt;padding-left: 13pt;text-indent: -7pt;text-align: left;">
+                            Largest price reduction</p>
+                    </td>
+                </tr>
+                <tr style="height:54pt">
+                    <td
+                        style="width:35pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-top: 2pt;padding-right: 2pt;text-indent: 0pt;text-align: right;">1.
+                        </p>
+                    </td>
+                    <td
+                        style="width:58pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">USDC
+                        </p>
+                    </td>
+                    <td
+                        style="width:61pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-top: 2pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+                            September 26, 2018</p>
+                    </td>
+                    <td
+                        style="width:87pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-top: 2pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+                            Market Cap:</p>
+                        <p class="s6" style="padding-left: 5pt;text-indent: 0pt;text-align: left;">$34,150,270,813</p>
+                        <p class="s6" style="padding-top: 1pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+                            Fully Diluted:</p>
+                        <p class="s6" style="padding-left: 5pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
+                            $34,144,392,339</p>
+                    </td>
+                    <td
+                        style="width:104pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
+                            34,148,205,417</p>
+                        <p class="s6" style="padding-left: 5pt;text-indent: 0pt;text-align: left;">USDC (100%)</p>
+                    </td>
+                    <td
+                        style="width:73pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-top: 2pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">May
+                            31, 2024</p>
+                    </td>
+                    <td
+                        style="width:63pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6"
+                            style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;line-height: 13pt;text-align: justify;">
+                            Dropped to</p>
+                        <p class="s6"
+                            style="padding-left: 5pt;padding-right: 2pt;text-indent: 3pt;text-align: justify;">$0.9769
+                            on 18/03/2020 (2.31%)</p>
+                    </td>
+                </tr>
+                <tr style="height:15pt">
+                    <td
+                        style="width:35pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6"
+                            style="padding-top: 2pt;padding-right: 2pt;text-indent: 0pt;line-height: 12pt;text-align: right;">
+                            2.</p>
+                    </td>
+                    <td
+                        style="width:58pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6"
+                            style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                            USDT</p>
+                    </td>
+                    <td
+                        style="width:61pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6"
+                            style="padding-top: 2pt;padding-left: 4pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                            2014</p>
+                    </td>
+                    <td
+                        style="width:87pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-top: 2pt;text-indent: 0pt;line-height: 12pt;text-align: right;">
+                            Market Cap:</p>
+                    </td>
+                    <td
+                        style="width:104pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6"
+                            style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                            112,259,808,785</p>
+                    </td>
+                    <td
+                        style="width:73pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6"
+                            style="padding-top: 2pt;padding-left: 4pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                            March 31,</p>
+                    </td>
+                    <td
+                        style="width:63pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6"
+                            style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                            Dropped to</p>
+                    </td>
+                </tr>
+                <tr style="height:13pt">
+                    <td
+                        style="width:35pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                    <td
+                        style="width:58pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                    <td
+                        style="width:61pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                    <td
+                        style="width:87pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-right: 1pt;text-indent: 0pt;line-height: 12pt;text-align: right;">
+                            $112,245,160,36</p>
+                    </td>
+                    <td
+                        style="width:104pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-left: 5pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                            USDT (96.71%)</p>
+                    </td>
+                    <td
+                        style="width:73pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-left: 4pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                            2024</p>
+                    </td>
+                    <td
+                        style="width:63pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-left: 9pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                            $0.6051 on</p>
+                    </td>
+                </tr>
+                <tr style="height:27pt">
+                    <td
+                        style="width:35pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                    <td
+                        style="width:58pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                    <td
+                        style="width:61pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                    <td
+                        style="width:87pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-left: 9pt;text-indent: 0pt;text-align: left;">4 <span
+                                class="s9">Fully Diluted:</span></p>
+                        <p class="s6" style="padding-left: 6pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                            $116,059,870,085</p>
+                    </td>
+                    <td
+                        style="width:104pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                    <td
+                        style="width:73pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                    </td>
+                    <td
+                        style="width:63pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-left: 8pt;text-indent: 0pt;line-height: 12pt;text-align: left;">
+                            03/03/2015</p>
+                        <p class="s6" style="padding-left: 5pt;text-indent: 0pt;line-height: 13pt;text-align: left;">
+                            (39.39%)</p>
+                    </td>
+                </tr>
+                <tr style="height:54pt">
+                    <td
+                        style="width:35pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s7" style="padding-top: 2pt;padding-right: 3pt;text-indent: 0pt;text-align: right;">3.
+                        </p>
+                    </td>
+                    <td
+                        style="width:58pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s7" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">BUSD
+                        </p>
+                    </td>
+                    <td
+                        style="width:61pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6"
+                            style="padding-top: 2pt;padding-left: 4pt;padding-right: 1pt;text-indent: 0pt;text-align: left;">
+                            September 5, 2019</p>
+                    </td>
+                    <td
+                        style="width:87pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-top: 2pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+                            Market Cap:</p>
+                        <p class="s8" style="padding-left: 4pt;text-indent: 0pt;text-align: left;">$69,566,598</p>
+                        <p class="s6" style="padding-top: 1pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
+                            Fully Diluted:</p>
+                        <p class="s8" style="padding-left: 4pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
+                            $69,566,793</p>
+                    </td>
+                    <td
+                        style="width:104pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s8" style="padding-top: 2pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">
+                            69,511,448 BUSD</p>
+                        <p class="s6" style="padding-left: 5pt;text-indent: 0pt;text-align: left;">(100%)</p>
+                    </td>
+                    <td
+                        style="width:73pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6" style="padding-top: 2pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">May
+                            31, 2024</p>
+                    </td>
+                    <td
+                        style="width:63pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s6"
+                            style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;line-height: 13pt;text-align: justify;">
+                            Dropped to</p>
+                        <p class="s6"
+                            style="padding-left: 5pt;padding-right: 2pt;text-indent: 3pt;text-align: justify;">$0.9714
+                            on 18/03/2024 (2.86%)</p>
+                    </td>
+                </tr>
+            </table>
+            <p style="padding-top: 4pt;text-indent: 0pt;text-align: left;"><br /></p>
+        </li>
+        <li data-list-text="7.">
+            <p style="padding-left: 23pt;text-indent: -17pt;text-align: left;"><span class="s1"
+                    style=" font-weight: 600;">RESPONSIBLE INDIVIDUALS </span></p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br /></p>
+            <p style="padding-left: 24pt;text-indent: 22pt;line-height: 108%;text-align: justify;">In accordance with
+                applicable laws and regulations, Wubu has appointed the following two (2) individuals who are senior
+                officials at Wubu as responsible parties to ensure Wubu’s compliance with all legal and regulatory
+                obligations:</p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br /></p>
+            <table style="border-collapse:collapse;margin-left:24.5pt" cellspacing="0">
+                <tr style="height:15pt">
+                    <td style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        bgcolor="#D9D9D9">
+                        <p class="s7"
+                            style="padding-top: 3pt;padding-left: 7pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
+                            Sr. no.</p>
+                    </td>
+                    <td style="width:145pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        bgcolor="#D9D9D9">
+                        <p class="s7"
+                            style="padding-top: 3pt;padding-left: 1pt;text-indent: 0pt;line-height: 11pt;text-align: center;">
+                            Name</p>
+                    </td>
+                    <td style="width:142pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        bgcolor="#D9D9D9">
+                        <p class="s7"
+                            style="padding-top: 3pt;padding-left: 45pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
+                            Designation</p>
+                    </td>
+                    <td style="width:138pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                        bgcolor="#D9D9D9">
+                        <p class="s7" style="padding-top: 3pt;text-indent: 0pt;line-height: 11pt;text-align: center;">
+                            E-mail</p>
+                    </td>
+                </tr>
+            </table>
+            <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            <table style="border-collapse:collapse;margin-left:24.5pt" cellspacing="0">
+                <tr style="height:47pt">
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s7" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">1.
+                        </p>
+                    </td>
+                    <td
+                        style="width:145pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s10" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">Mr.
+                            Youcun Chen</p>
+                    </td>
+                    <td
+                        style="width:142pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s10" style="padding-top: 5pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
+                            Chief Financial</p>
+                        <p class="s10" style="padding-left: 5pt;text-indent: 0pt;line-height: 14pt;text-align: left;">
+                            Officer/Chief Operations Officer</p>
+                    </td>
+                    <td
+                        style="width:138pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;"><a
+                                href="mailto:tiger@wubu.com" class="s11">tiger@wubu.com</a></p>
+                    </td>
+                </tr>
+                <tr style="height:18pt">
+                    <td
+                        style="width:42pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s7"
+                            style="padding-top: 6pt;padding-left: 5pt;text-indent: 0pt;line-height: 11pt;text-align: left;">
+                            2.</p>
+                    </td>
+                    <td
+                        style="width:145pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s10" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">Mr
+                            Tariq Abu Ragheb</p>
+                    </td>
+                    <td
+                        style="width:142pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p class="s10" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">
+                            Chief Executive Officer</p>
+                    </td>
+                    <td
+                        style="width:138pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                        <p style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;"><a
+                                href="mailto:tariq@wubu.com" class="s11">tariq@wubu.com</a></p>
+                    </td>
+                </tr>
+            </table>
+            <p style="padding-top: 3pt;text-indent: 0pt;text-align: left;"><br /></p>
+        </li>
+        <li data-list-text="8.">
+            <p style="padding-left: 23pt;text-indent: -17pt;text-align: left;"><span class="s1"
+                    style=" font-weight: 600;">PRICING </span></p>
+            <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br /></p>
+            <p style="padding-left: 24pt;text-indent: 22pt;line-height: 108%;text-align: left;">The prices of the
+                Virtual Assets quotes to our clients are determined by Wubu, considering the following: a. External
+                price sources from liquidity providers;</p>
+            <ol id="l3">
+                <li data-list-text="b.">
+                    <p style="padding-left: 42pt;text-indent: -17pt;text-align: left;">The current risk position of
+                        Wubu; and</p>
+                </li>
+                <li data-list-text="c.">
+                    <p style="padding-top: 1pt;padding-left: 42pt;text-indent: -17pt;text-align: left;">Per-client
+                        configurations, determined by Wubu or, in some cases, at the request of the client.</p>
+                </li>
+            </ol>
+            <p style="padding-top: 4pt;text-indent: 0pt;text-align: left;"><br /></p>
+        </li>
+        <li data-list-text="9.">
+            <p style="padding-left: 23pt;text-indent: -17pt;text-align: left;"><span class="s1"
+                    style=" font-weight: 600;">EXECUTION &amp; REFERRALS </span></p>
+        </li>
+    </ol>
+    <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br /></p>
+    <p style="padding-left: 24pt;text-indent: 22pt;line-height: 108%;text-align: justify;">Client orders will always be
+        executed by Wubu on execution venues which Wubu chooses. Wubu may act as an agent or as a principal to fulfil
+        its client orders. The decision to act either as an agent or a principal is determined by a multitude of
+        factors, which are listed in our internal policies. Wubu will notify its clients with whom it has an ongoing
+        business relationship of any material changes to its order execution policy or arrangements.</p>
+    <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br /></p>
+    <p style="padding-left: 24pt;text-indent: 22pt;line-height: 108%;text-align: justify;"><a
+            href="mailto:service@wubu.com" class="a" target="_blank">A description of Wubu’s order execution and routing
+            practices may be sought by clients by writing to </a><a href="mailto:service@wubu.com"
+            target="_blank">service@wubu.com.</a></p>
+    <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br /></p>
+    <p style="padding-left: 24pt;text-indent: 22pt;line-height: 108%;text-align: justify;">In the event Wubu routes
+        twenty percent (20%) or more of its orders to any single liquidity provider, the identity of such sources will
+        be updated below:</p>
+    <table style="border-collapse:collapse;margin-left:24.5pt" cellspacing="0">
+        <tr style="height:26pt">
+            <td style="width:45pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                bgcolor="#D9D9D9">
+                <p class="s6" style="padding-top: 6pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">Sr. No.</p>
+            </td>
+            <td style="width:113pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                bgcolor="#D9D9D9">
+                <p class="s6" style="padding-top: 6pt;padding-left: 29pt;text-indent: 0pt;text-align: left;">Legal Name
+                </p>
+            </td>
+            <td style="width:144pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                bgcolor="#D9D9D9">
+                <p class="s6" style="padding-top: 6pt;padding-left: 40pt;text-indent: 0pt;text-align: left;">Trading
+                    Name</p>
+            </td>
+            <td style="width:166pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
+                bgcolor="#D9D9D9">
+                <p class="s6" style="padding-top: 6pt;padding-left: 21pt;text-indent: 0pt;text-align: left;">Volume
+                    (Last three months)</p>
+            </td>
+        </tr>
+        <tr style="height:28pt">
+            <td
+                style="width:45pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s6" style="padding-top: 7pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">1.</p>
+            </td>
+            <td
+                style="width:113pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            </td>
+            <td
+                style="width:144pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            </td>
+            <td
+                style="width:166pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            </td>
+        </tr>
+        <tr style="height:28pt">
+            <td
+                style="width:45pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p class="s6" style="padding-top: 7pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">2.</p>
+            </td>
+            <td
+                style="width:113pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            </td>
+            <td
+                style="width:144pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            </td>
+            <td
+                style="width:166pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+                <p style="text-indent: 0pt;text-align: left;"><br /></p>
+            </td>
+        </tr>
+    </table>
+    <p style="text-indent: 0pt;text-align: left;"><br /></p>
+    <p style="padding-left: 24pt;text-indent: 22pt;line-height: 108%;text-align: justify;">Wubu does not introduce or
+        refer its clients to any other entities including other virtual asset service providers.</p>
+    <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br /></p>
+    <p style="padding-left: 7pt;text-indent: 0pt;text-align: left;"><span class="s1"
+            style=" font-weight: 600;"> 10. HOLDING AND CONTROLLING CLIENT MONEY </span></p>
+    <p style="padding-top: 2pt;text-indent: 0pt;text-align: left;"><br /></p>
+    <p style="padding-left: 24pt;text-indent: 22pt;line-height: 108%;text-align: justify;">Wubu does not offer custody
+        services in relation to virtual assets for its clients. However, in the process of providing its services, Wubu
+        may hold or control Client Money (as defined in the VARA Compliance and Risk Management Rulebook). This Client
+        Money will be held in dedicated Client Accounts (as defined in the VARA Compliance and Risk Management Rulebook)
+        in accordance with applicable laws and regulation. Client Money held with desginated licensed financial
+        institutions licensed</p>
+    <p style="padding-top: 12pt;padding-left: 24pt;text-indent: 0pt;line-height: 108%;text-align: justify;">in the UAE,
+        that are well versed with handling of Client Money. Wubu shall ensure that Client Money is always identifiable
+        and secure. Wubu shall ensure compliance with all applicable law and regulations in handling and controlling
+        Client Money including formulating and implementing the necessary policies, systems and controls, appropriate to
+        the nature and scale of Wubu’s operations. Wubu’s own operational funds accounts will not be commingled with the
+        Client Money.</p>
+    <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br /></p>
+    <p style="padding-left: 7pt;text-indent: 0pt;text-align: left;"><span class="s1"
+            style=" font-weight: 600;"> 11. HOLDING AND CONTROLLING CLIENT ASSETS </span></p>
+    <p style="padding-top: 2pt;text-indent: 0pt;text-align: left;"><br /></p>
+    <p style="padding-left: 24pt;text-indent: 0pt;line-height: 108%;text-align: left;">Wubu does not offer custody of
+        Client VAs (as defined in the VARA Compliance and Risk Management Rulebook).</p>
+    <p style="padding-left: 24pt;text-indent: 0pt;text-align: left;">Wubu uses licensed third-party service providers,
+        as an external custodian to safeguard Client VAs. Fireblocks LLC custodies Client VAs in line with its own
+        regulatory approvals. Wubu only takes custody of Client VAs in the course of providing its Broker Dealer
+        Services.</p>
+    <p style="text-indent: 0pt;text-align: left;"><br /></p>
+    <p style="padding-left: 24pt;text-indent: 22pt;line-height: 108%;text-align: justify;">Among the key arrangements
+        envisaged to this end, Wubu selects custodians only after having performed due diligence on such service
+        providers. This entails an analysis on the regulatory status, internal approvals processes, and risk management
+        practices. Wubu intends to appoint only entities ensuring asset segregation or equivalent safeguards for
+        long-term custody purposes. Wubu will conduct such due diligence on its service providers on a regular basis, to
+        ensure the regulatory status of the service provider.</p>
+    <p style="padding-top: 1pt;text-indent: 0pt;text-align: left;"><br /></p>
+    <p style="padding-left: 7pt;text-indent: 0pt;text-align: left;"><span class="s1"
+            style=" font-weight: 600;"> 12. STATEMENTS BY WUBU </span></p>
+    <p style="padding-top: 8pt;padding-left: 47pt;text-indent: 0pt;text-align: left;">Wubu does not hold or maintain
+        funds or virtual assets or provide clearing services for other VASPs.</p>
+    <p style="padding-top: 2pt;text-indent: 0pt;text-align: left;"><br /></p>
+    <p style="padding-left: 7pt;text-indent: 0pt;text-align: left;"><span class="s1"
+            style=" font-weight: 600;"> 13. PAST CONVICTIONS </span></p>
+    <p style="padding-top: 8pt;padding-left: 24pt;text-indent: 22pt;line-height: 108%;text-align: justify;">Wubu and any
+        members of its senior management or board have not been previously convicted or prosecuted, either before the
+        courts of the UAE or the courts of another jurisdiction.</p>
+    <p style="text-indent: 0pt;text-align: left;"><br /></p>
+    <p style="padding-left: 26pt;text-indent: 0pt;line-height: 3pt;text-align: left;"><span>
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td><img width="625" height="4"
+                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAnEAAAAECAYAAADh/WljAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7EAAAOxAGVKw4bAAABmklEQVRoge3WYWsOYBiG4SdKKaWUiIgmmiaLaCKbiKzJmsgiyyKaaIu2tiYiItHWREQWERHRNFk0TURkTUSWaKJJrZRSq737yvEP3rrPuj4df+BKKaXMPxtK/zcSH8RH4X/x0fgffAz+Gx+LD+Dj8F/4eLwfn4h/xyfjffhU/As+He/FZ+Af8Vn4e3w2/hafg3fj+fhrfD7+El+IP8cX4U/xJfgTvBB/jC/DO/AV+AN8FX4fL8bv4WvwO3gpfgtfh9/AN+DX8HL8Cr4Zb8Ur8It4JX4e346fxXfip/FdeDO+Bz+F1+An8H34MbwOP4I34Ifw/fgB/CDeiB/G6/GjeC1+HN+Ln8Sr8SZ8N96CV+Fn8B34OXwbfgHfil/Ct+CX8U34VXwjfh1fj9/Ey/Db+Fr8Ll6Ct+Gr8XZ8Jf4QX44/wovwTnwp3oUvxp/hBfgLfAH+Cp+Hv8Hn4j14Hv4Oz8U/4DPxT3gO/hmfhn/Fp+Df8En4D3wC/jOllBmRoiiKoiiKoqwrTlwURVEURVEWFicuiqIoiqIoCxsGSoM4K3W4P7AAAAAASUVORK5CYIIA" />
+                    </td>
+                </tr>
+            </table>
+        </span></p>
+
+    </div>
+</body>
+<script src="../js/searchFun.js" ></script>
+
+</html>

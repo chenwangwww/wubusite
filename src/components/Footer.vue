@@ -19,12 +19,12 @@
       <!-- 公司链接 -->
       <div>
         <div class="text-[#8D8D8D] text-[1.5rem] mb-[0.75rem]">COMPANY</div>
-        <div class="text-[1.125rem]"><router-link to="/info/aboutus">About Us</router-link></div>
-        <div class="text-[1.125rem]"><router-link to="/info/executive_team">Executive Team</router-link></div>
-        <div class="text-[1.125rem]"><router-link to="/info/terms_of_use">Terms of Use</router-link></div>
-        <div class="text-[1.125rem]"><router-link to="/info/privacy_policy">Privacy Policy</router-link></div>
-        <div class="text-[1.125rem]"><router-link to="/info/security">Security</router-link></div>
-        <div class="text-[1.125rem]"><router-link to="/info/connect">Contact Us</router-link></div>
+        <div class="text-[1.125rem]"><router-link to="/aboutus">About Us</router-link></div>
+        <div class="text-[1.125rem]"><router-link to="/executeteam">Executive Team</router-link></div>
+        <div class="text-[1.125rem] cursor-pointer" @click="showFooterPopup('TermsOfUse')">Terms of Use</div>
+        <div class="text-[1.125rem] cursor-pointer" @click="showFooterPopup('PrivacyPolicy')">Privacy Policy</div>
+        <div class="text-[1.125rem]"><router-link to="/security">Security</router-link></div>
+        <div class="text-[1.125rem]"><router-link to="/contactus">Contact Us</router-link></div>
       </div>
 
       <!-- 法律文档 -->
@@ -39,7 +39,7 @@
         <div class="text-[1.125rem] cursor-pointer" @click="showFooterPopup('RiskDisclosureStatement')">
           <a>Risk Disclosure Statement</a>
         </div>
-        <div class="text-[1.125rem] cursor-pointer" @click="showFooterPopup('VAStandards')">
+        <div class="text-[1.125rem] cursor-pointer" @click="showFooterPopup('VaStandards')">
           <a>VA Standards</a>
         </div>
         <div class="text-[1.125rem] cursor-pointer" @click="showFooterPopup('ComplaintsHandlingPolicy')">
@@ -74,12 +74,12 @@
       <!-- 公司链接 -->
       <div>
         <div class="text-[#8D8D8D] text-[1.5rem] mb-[0.75rem]">COMPANY</div>
-        <div class="text-[1.125rem]"><router-link to="/info/aboutus">About Us</router-link></div>
-        <div class="text-[1.125rem]"><router-link to="/info/executive_team">Executive Team</router-link></div>
-        <div class="text-[1.125rem]"><router-link to="/info/terms_of_use">Terms of Use</router-link></div>
-        <div class="text-[1.125rem]"><router-link to="/info/privacy_policy">Privacy Policy</router-link></div>
-        <div class="text-[1.125rem]"><router-link to="/info/security">Security</router-link></div>
-        <div class="text-[1.125rem]"><router-link to="/info/connect">Contact Us</router-link></div>
+        <div class="text-[1.125rem]"><router-link to="/aboutus">About Us</router-link></div>
+        <div class="text-[1.125rem]"><router-link to="/executeteam">Executive Team</router-link></div>
+        <div class="text-[1.125rem]" @click="showFooterPopup('TermsOfUse')">Terms of Use</div>
+        <div class="text-[1.125rem]" @click="showFooterPopup('PrivacyPolicy')">Privacy Policy</div>
+        <div class="text-[1.125rem]"><router-link to="/security">Security</router-link></div>
+        <div class="text-[1.125rem]"><router-link to="/contactus">Contact Us</router-link></div>
       </div>
 
       <!-- 法律文档 -->
@@ -94,7 +94,7 @@
         <div class="text-[1.125rem] cursor-pointer" @click="showFooterPopup('RiskDisclosureStatement')">
           <a>Risk Disclosure Statement</a>
         </div>
-        <div class="text-[1.125rem] cursor-pointer" @click="showFooterPopup('VAStandards')">
+        <div class="text-[1.125rem] cursor-pointer" @click="showFooterPopup('VaStandards')">
           <a>VA Standards</a>
         </div>
         <div class="text-[1.125rem] cursor-pointer" @click="showFooterPopup('ComplaintsHandlingPolicy')">
@@ -111,13 +111,15 @@
 
   <!-- Footer 条款弹窗 -->
   <div v-if="showPopup" class="fixed top-0 left-0 right-0 bottom-0 bg-[rgba(0,0,0,0.5)] z-[999]">
-    <div ref="popupContent" class="absolute w-3/4 h-3/4 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white p-[1.875rem] rounded-[1.25rem] shadow-[0_4px_20px_0px_rgba(0,0,0,0.1)]">
+    <div ref="popupContent"
+      class="absolute w-3/4 h-3/4 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white p-[1.875rem] rounded-[1.25rem] shadow-[0_4px_20px_0px_rgba(0,0,0,0.1)]">
       <div class="h-full">
         <div class="flex items-center justify-center" style="height: calc(100% - 3.875rem);">
           <iframe :src="currentPopupUrl" width="100%" height="100%" frameborder="0"></iframe>
         </div>
         <div class="flex justify-center">
-          <button @click="hideFooterPopup" class="text-white bg-[#FF7545] md:w-[33.4375rem] w-full h-[2rem] rounded-2xl mt-[1.875rem]">
+          <button @click="hideFooterPopup"
+            class="text-white bg-[#FF7545] md:w-[33.4375rem] w-full h-[2rem] rounded-2xl mt-[1.875rem]">
             Sure
           </button>
         </div>
@@ -129,14 +131,22 @@
 <script setup>
 import { ref } from 'vue';
 import logoImage from '@/assets/images/logo.png';
+import { useRouter } from 'vue-router';
 
 const showPopup = ref(false);
 const currentPopupUrl = ref('');
 const popupContent = ref(null);
+const router = useRouter()
 
 const showFooterPopup = (file) => {
-  currentPopupUrl.value = `/assets/html/${file}.html`;
-  showPopup.value = true;
+  // currentPopupUrl.value = `/html/${file}.html`;
+  // showPopup.value = true;
+  router.replace({
+    path: '/info',
+    query: {
+      name: file
+    }
+  })
 };
 
 const hideFooterPopup = () => {
