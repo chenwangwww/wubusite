@@ -72,6 +72,11 @@ const routes = [
         name: 'forget',
         component: () => import('../views/auth/Forget.vue'),
     },
+    {
+        path: '/tests',
+        name: 'tests',
+        component: () => import('../views/test/Test.vue'),
+    },
 ]
 
 const router = createRouter({

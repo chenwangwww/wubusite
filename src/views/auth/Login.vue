@@ -58,7 +58,7 @@
 
         <!-- 忘记密码链接 -->
         <div class="text-[#FF7545] text-[1.0rem] font-[700] mt-[0.75rem] mb-[1.875rem] text-right">
-          <router-link to="/password/reset">forgot password?</router-link>
+          <router-link to="/forget">forgot password?</router-link>
         </div>
 
         <!-- 登录按钮 -->
