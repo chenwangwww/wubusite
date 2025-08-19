@@ -69,16 +69,41 @@
 
         <button type="button"
           class="w-full text-white bg-black rounded-[0.75rem] md:rounded-[1rem] h-[3rem] md:h-[3.75rem] text-[0.875rem] md:text-base"
-          @click="showAlert = true">
+          @click="showStepOne = true">
           Confirm
         </button>
       </form>
     </div>
   </div>
+ 
+ <!-- 多级弹窗 -->
+  <SellStepOne 
+    v-if="showStepOne" 
+    @close="showStepOne = false" 
+    @confirm="handleStepOneConfirm" 
+  />
+  
+  <SellStepTwo 
+    v-if="showStepTwo" 
+    @confirm="handleStepTwoConfirm" 
+  />
+  
+  <SellStepThree 
+    v-if="showStepThree"
+    @confirm="handleStepThreeConfirm"  
+  />
+  <SellStepFour 
+    v-if="showStepFour"
+    @confirm="handleStepFourConfirm"  
+  />
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
+import SellStepOne from './components/SellStepOne.vue';
+import SellStepTwo from './components/SellStepTwo.vue';
+import SellStepThree from './components/SellStepThree.vue';
+import SellStepFour from './components/SellStepFour.vue';
 
 // 导入所有需要的图标
 import UsdIcon from '@/assets/icons/usd.svg';
@@ -95,6 +120,12 @@ const showToDropdown = ref(false);
 const showFromDropdownRef = ref(null);
 const showToDropdownRef = ref(null);
 const showAlert = ref(false);
+
+// 新增弹窗状态变量
+const showStepOne = ref(false);
+const showStepTwo = ref(false);
+const showStepThree = ref(false);
+const showStepFour = ref(false);
 
 const exchangeRates = {
   'USD_USDT': 1.001,
@@ -180,6 +211,26 @@ const calculateExchange = () => {
   }
   const rate = exchangeRates[`${fromCurrency.value}_${toCurrency.value}`] || 1;
   toAmount.value = (parseFloat(fromAmount.value) * rate).toFixed(2);
+};
+
+// 新增弹窗处理方法
+const handleStepOneConfirm = () => {
+  showStepOne.value = false;
+  showStepTwo.value = true;
+};
+
+const handleStepTwoConfirm = () => {
+  showStepTwo.value = false;
+  showStepThree.value = true;
+};
+
+const handleStepThreeConfirm = () => {
+  showStepThree.value = false;
+  showStepFour.value = true;
+};
+
+const handleStepFourConfirm = () => {
+  showStepFour.value = false;
 };
 
 onMounted(() => {

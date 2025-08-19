@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from '@/stores/user'
 import HomeView from '../views/home/Home.vue'
 
 const routes = [
@@ -82,6 +83,20 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes
+})
+
+router.beforeEach((to) => {
+  const userStore = useUserStore()
+  
+  // 需要认证但未登录
+  if (to.meta.requiresAuth && !userStore.isLoggedIn) {
+    return '/login'
+  }
+  
+  // 已登录但访问登录页
+  if (to.path === '/login' && userStore.isLoggedIn) {
+    return '/home'
+  }
 })
 
 export default router
