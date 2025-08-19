@@ -1,233 +1,208 @@
 <template>
   <Header />
-  <section
-    class="mx-auto 2xl:container mt-[3.3125rem] w-full h-[48.75rem] px-[7.5rem] flex md:justify-between justify-center items-end pb-[5.0rem]"
-  >
-    <!-- 左侧内容 -->
-    <div class="md:flex hidden flex-col w-full h-full justify-center items-center">
-      <h4 class="text-[#FF7545] text-[2.25rem] font-[800] mb-[0.75rem]">Trade with confidence</h4>
-      <p class="text-[1.25rem] text-[#202326] w-[24.375rem] mb-[2.6875rem]">
-        Your funds are always backed 1:1 on WUBU with our regularly published audits
-        on our Proof of Reserves
-      </p>
-      <img src="@/assets/images/registerFlag.png" alt="Trade with confidence" class="w-[30.4375rem]">
-    </div>
-
-    <!-- 注册表单 -->
+  
+  <!-- 步骤指示器 -->
+  <div class="justify-center gap-4 mb-8 mt-8 md:flex hidden">
     <div 
-      v-if="!registerSuccess"
-      class="py-[2.0625rem] px-[1.625rem] rounded-[1.25rem] shadow-[0_4px_20px_0px_rgba(0,0,0,0.1)] h-[43.75rem]"
+      v-for="(step, index) in steps" 
+      :key="index"
+      @click="currentStep > index && goToStep(index)"
+      :class="{
+        'bg-[#FF7545] text-white': currentStep === index,
+        'bg-gray-200 cursor-pointer': currentStep > index,
+        'bg-gray-100': currentStep < index
+      }"
+      class="px-4 py-2 rounded-full flex items-center"
     >
-      <h2 class="text-[#202326] md:text-[2.5rem] text-[1.375rem] font-[800] mb-[0.75rem]">Create Account</h2>
-      <form @submit.prevent="handleSubmit">
-        <!-- 邮箱输入 -->
-        <label class="text-[1.25rem] font-[600]">Email Address</label><br>
-        <div class="mt-[0.5rem]"></div>
-        <input 
-          required 
-          v-model="form.email" 
-          type="email" 
-          id="mail"
-          @input="clearError('email')"
-          class="wuBuTip md:w-[33.0rem] border rounded-2xl py-[0.75rem] px-[1.5rem] text-[1.25rem] block"
-        >
-        <div v-if="errors.email" class="mb-[1.25rem] text-[0.625rem] text-red-400">
-          {{ errors.email }}
-        </div>
-
-        <div class="mt-[1rem]"></div>
-        <!-- 密码输入 -->
-        <label class="text-[1.25rem] font-[600]">
-          Password<span class="text-[1.0rem] text-[#8D8D8D]"> (At least 6 characters)</span>
-        </label><br>
-        <div class="mt-[0.5rem]"></div>
-        <input 
-          required 
-          v-model="form.password" 
-          type="password" 
-          id="pwd"
-          @input="clearError('password')"
-          class="wuBuTip md:w-[33.0rem] border rounded-2xl py-[0.75rem] px-[1.5rem] text-[1.25rem] block"
-        >
-        <div v-if="errors.password" class="mb-[1.25rem] text-[0.625rem] text-red-400">
-          {{ errors.password }}
-        </div>
-
-        <div class="mt-[1rem]"></div>
-        <!-- 确认密码 -->
-        <label class="text-[1.25rem] font-[600]">
-          Confirm Password<span class="text-[1.0rem] text-[#8D8D8D]"> (At least 6 characters)</span>
-        </label><br>
-        <div class="mt-[0.5rem]"></div>
-        <input 
-          required 
-          v-model="form.confirmPassword" 
-          type="password" 
-          id="qpwd"
-          class="wuBuTip md:w-[33.0rem] border rounded-2xl py-[0.75rem] px-[1.5rem] text-[1.25rem] mb-[1.25rem]"
-        >
-
-        <!-- 条款同意 -->
-        <div class="flex items-center relative wuBucheckbox">
-          <input 
-            required 
-            type="checkbox" 
-            id="checkboxReg" 
-            v-model="form.agreeTerms"
-            class="w-[1.25rem] h-[1.25rem] border rounded-2xl py-[0.75rem] px-[1.5rem] text-[1.25rem] font-[600] mr-[0.625rem]"
-          >
-          <label for="checkboxReg" class="text-[1.0rem] text-[#8D8D8D]">
-            I have read and agree to the 
-            <span class="text-[#FF7545] cursor-pointer" @click="showTerms">terms of use</span>
-          </label>
-        </div>
-
-        <!-- 提交按钮 -->
-        <button 
-          type="submit"
-          class="text-white bg-[#FF7545] md:w-[33.4375rem] w-full h-[3.75rem] rounded-[2.5rem] mt-[1.875rem]"
-        >
-          Register
-        </button>
-      </form>
-
-      <div class="my-[1.875rem] text-[1.0rem] font-[700] text-center">
-        Already have an account? 
-        <router-link to="/login" class="text-[#FF7545]">login</router-link>
-      </div>
+      <span class="w-6 h-6 rounded-full bg-white text-[#FF7545] flex items-center justify-center mr-2" 
+            v-if="currentStep > index">✓</span>
+      <span v-else class="w-6 h-6 rounded-full bg-white/30 flex items-center justify-center mr-2">
+        {{ index + 1 }}
+      </span>
+      {{ step.title }}
     </div>
+  </div>
 
-    <!-- 注册成功 -->
-    <div 
-      v-else
-      class="py-[2.0625rem] px-[7.625rem] rounded-[1.25rem] shadow-[0_4px_20px_0px_rgba(0,0,0,0.1)]"
-    >
-      <h2 class="text-[#202326] md:text-[2.5rem] text-[1.375rem] font-[800] mb-[0.75rem]">Create Account</h2>
-      <div class="mt-[5.375rem] mb-[4.125rem]">
-        <img src="@/assets/icons/down.svg" class="w-[8.0rem] h-[8.0rem] mx-auto">
-        <div class="leading-[3.875rem] text-[1.5rem] font-[700] text-center mt-[3.25rem]">
-          Your account is created successfully.
-        </div>
-      </div>
-      <div>
-        <router-link 
-          to="/login"
-          class="text-white bg-[#FF7545] md:w-[33.4375rem] w-full h-[3.75rem] rounded-2xl mt-[1.875rem] flex items-center justify-center"
-        >
-          Login Now
-        </router-link>
-      </div>
-    </div>
+  <!-- 动态表单组件 -->
+  <component
+    :is="steps[currentStep].component"
+    :form="formData"
+    :errors="errors"
+    :submit-success="submitStatus[currentStep]"
+    @update="handleUpdate"
+    @submit="handleStepSubmit"
+    @show-terms="showTermsPopup = true"
+    @hide-terms="showTermsPopup = false"
+  />
 
-    <!-- 条款弹窗 -->
-    <div 
-      v-if="showTermsPopup" 
-      class="fixed top-0 left-0 right-0 bottom-0 bg-[rgba(0,0,0,0.5)] z-[999]"
-      @click.self="hideTerms"
-    >
-      <div 
-        class="absolute w-3/4 h-3/4 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white p-[1.875rem] rounded-[1.25rem] shadow-[0_4px_20px_0px_rgba(0,0,0,0.1)]"
-      >
-        <div class="h-full">
-          <div class="flex items-center justify-center" style="height: calc(100% - 3.875rem);">
-            <iframe 
-              src="/html/TermsOfUse.html" 
-              width="100%" 
-              height="100%"
-              frameborder="0"
-            ></iframe>
-          </div>
-          <div class="flex justify-center">
-            <button 
-              @click="hideTerms"
-              class="text-white bg-[#FF7545] md:w-[33.4375rem] w-full h-[2rem] rounded-2xl mt-[1.875rem]"
-            >
-              Sure
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- 条款弹窗 -->
+  <TermsPopup v-if="showTermsPopup" @close="showTermsPopup = false" />
+
   <Footer />
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import Header from '../../components/Header.vue';
-import Footer from '../../components/Footer.vue';
+import { ref, computed } from 'vue';
+import Header from '@/components/Header.vue';
+import Footer from '@/components/Footer.vue';
+import RegisterForm from './components/RegisterStepOne.vue';
+import ContactInfoForm from './components/RegisterStepTwo.vue';
+import ServiceTypeForm from './components/RegisterStepThree.vue';
+import RegisterStepSuccess from './components/RegisterStepSuccess.vue';
+import TermsPopup from './components/TermsPopup.vue';
 
-const router = useRouter();
+// 步骤配置
+const steps = [
+  { 
+    title: 'Account', 
+    component: RegisterForm,
+    fields: ['email', 'password', 'confirmPassword', 'agreeTerms']
+  },
+  { 
+    title: 'Contact', 
+    component: ContactInfoForm,
+    fields: ['firstName', 'lastName', 'phoneNumber', 'companyName']
+  },
+  { 
+    title: 'Service Type', 
+    component: ServiceTypeForm,
+    fields: ['serviceType']
+  },
+  { 
+    title: 'RegisterStepSuccess', 
+    component: RegisterStepSuccess,
+  },
+];
 
+// 当前步骤
+const currentStep = ref(0);
 // 表单数据
-const form = ref({
+const formData = ref({
+  // 注册信息
   email: '',
   password: '',
   confirmPassword: '',
-  agreeTerms: false
+  agreeTerms: false,
+  
+  // 服务类型
+  serviceType: '',
+  
+  // 联系信息
+  firstName: '',
+  lastName: '',
+  phoneNumber: '',
+  companyName: ''
 });
 
+// 提交状态
+const submitStatus = ref(steps.map(() => false));
 // 错误信息
-const errors = ref({
-  email: '',
-  password: ''
-});
-
-// 控制显示
-const registerSuccess = ref(false);
+const errors = ref({});
+// 条款弹窗状态
 const showTermsPopup = ref(false);
+
+// 处理字段更新
+const handleUpdate = (field, value) => {
+  
+  formData.value[field] = value;
+  clearError(field);
+};
 
 // 清除错误
 const clearError = (field) => {
-  errors.value[field] = '';
+  if (errors.value[field]) {
+    delete errors.value[field];
+  }
 };
 
-// 显示条款
-const showTerms = (e) => {
-  e.preventDefault();
-  showTermsPopup.value = true;
-};
-
-// 隐藏条款
-const hideTerms = () => {
-  showTermsPopup.value = false;
-};
-
-// 表单提交
-const handleSubmit = () => {
-  // 验证表单
+// 步骤提交处理
+const handleStepSubmit = async () => {
+  // 验证当前步骤必填字段
+  const currentFields = steps[currentStep.value].fields;
+  
   let isValid = true;
-
-  // 验证邮箱
-  if (!form.value.email) {
-    errors.value.email = "You need to enter an email address.";
-    isValid = false;
-  } else if (!/^\S+@\S+\.\S+$/.test(form.value.email)) {
-    errors.value.email = "Entered value needs to be an email address.";
-    isValid = false;
+  
+  for (const field of currentFields) {
+    if (field === 'agreeTerms') continue;
+    
+    if (!formData.value[field]) {
+      errors.value[field] = getErrorMessage(field);
+      isValid = false;
+    } else if (field === 'email' && !/^\S+@\S+\.\S+$/.test(formData.value.email)) {
+      errors.value.email = "Please enter a valid email address";
+      isValid = false;
+    } else if (field === 'password' && formData.value.password.length < 6) {
+      errors.value.password = "Password must be at least 6 characters";
+      isValid = false;
+    } else if (field === 'confirmPassword' && formData.value.password !== formData.value.confirmPassword) {
+      errors.value.confirmPassword = "Passwords do not match";
+      isValid = false;
+    } else if (field === 'phoneNumber' && !/^[0-9]{9}$/.test(formData.value.phoneNumber)) {
+      errors.value.phoneNumber = "Please enter a valid UAE phone number (9 digits after +971)";
+      isValid = false;
+    }
   }
-
-  // 验证密码
-  if (!form.value.password) {
-    errors.value.password = "The Password Is Incorrect, Check Again";
-    isValid = false;
-  } else if (form.value.password.length < 6) {
-    errors.value.password = "Password must be at least 6 characters";
-    isValid = false;
-  } else if (form.value.password !== form.value.confirmPassword) {
-    errors.value.password = "You Input Two Different Passwords";
-    isValid = false;
-  }
-
   if (!isValid) return;
 
-  // 这里应该是实际的注册API调用
-  // 模拟成功注册
-  registerSuccess.value = true;
+  // 标记当前步骤为已完成
+  submitStatus.value[currentStep.value] = true;
+  
+  // 如果是最后一步，提交所有数据
+  if (currentStep.value === steps.length - 1) {
+    await submitAllData();
+  } else {
+    // 否则进入下一步
+    currentStep.value++;
+  }
+};
+
+// 获取字段错误信息
+const getErrorMessage = (field) => {
+  const messages = {
+    email: "Email is required",
+    password: "Password is required",
+    confirmPassword: "Please confirm your password",
+    serviceType: "Please select a service type",
+    firstName: "First name is required",
+    lastName: "Last name is required",
+    phoneNumber: "Phone number is required"
+  };
+  return messages[field] || "This field is required";
+};
+
+// 跳转到指定步骤
+const goToStep = (stepIndex) => {
+  // 只能跳转到已完成的步骤
+  if (submitStatus.value[stepIndex] || stepIndex === 0) {
+    currentStep.value = stepIndex;
+  }
+};
+
+// 提交所有数据
+const submitAllData = async () => {
+  try {
+    console.log('Submitting all data:', formData.value);
+    // 这里添加实际的API调用
+    // await api.submitForm(formData.value);
+    alert('Registration completed successfully!');
+  } catch (error) {
+    console.error('Submission error:', error);
+    alert('There was an error submitting your data. Please try again.');
+  }
 };
 </script>
 
 <style scoped>
-/* 可以添加组件特定的样式 */
+/* 步骤指示器动画 */
+.step-indicator {
+  transition: all 0.3s ease;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .step-indicator {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+  }
+}
 </style>
