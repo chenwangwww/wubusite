@@ -4,9 +4,10 @@
       <div class="hidden md:block">
         <div class="grid grid-cols-6 gap-4 px-6 py-4 bg-[#FFF7F2] text-black font-semibold">
           <div class="text-center">Date</div>
-          <div class="text-center">Amount</div>
-          <div class="text-center">Currency</div>
-          <div class="text-center">rate</div>
+          <div class="text-center">Type</div>
+          <div class="text-center">Total</div>
+          <div class="text-center">Price</div>
+          <div class="text-center">Quantity</div>
           <div class="text-center">State</div>
           <div class="text-center">action</div>
         </div>
@@ -16,12 +17,13 @@
           <div class="text-center text-black">{{ item.type }}</div>
           <div class="text-center text-black">{{ item.total }}</div>
           <div class="text-center text-black">{{ item.quantity }}</div>
+          <div class="text-center text-black">Wallet</div>
           <div class="text-center">
             <span :class="getStateClass(item.state)" class="px-3 py-1 rounded-full text-xs font-medium">
               {{ item.state }}
             </span>
           </div>
-          <div class="text-center text-white bg-[#0ECB81] rounded-lg py-2" @click="handleShowDetail">Details</div>
+          <div class="text-center text-white bg-[#0ECB81] rounded-lg py-2">Details</div>
         </div>
         <div class="flex justify-center items-center mt-4 space-x-2">
           <button @click="currentPage--" :disabled="currentPage <= 1" class="px-4 py-2 border rounded-md"
@@ -42,17 +44,19 @@
             <div class="space-y-0 text-left px-3">
               <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">action</div>
               <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">Date</div>
-              <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">Amount</div>
-              <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">Currency</div>
-              <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">rate</div>
+              <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">Type</div>
+              <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">Total</div>
+              <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">Price</div>
+              <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">Quantity</div>
               <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">State</div>
             </div>
             <div class="space-y-0 text-right px-3">
-              <div class="text-white bg-[#0ECB81] rounded-lg py-2 px-4 text-xs font-medium inline-block" @click="handleShowDetail">Details</div>
+              <div class="text-white bg-[#0ECB81] rounded-lg py-2 px-4 text-xs font-medium inline-block">Details</div>
               <div class="py-2 text-black text-xs font-medium">{{ item.date }}</div>
               <div class="py-2 text-black text-xs font-medium">{{ item.type }}</div>
               <div class="py-2 text-black text-xs font-medium">{{ item.total }}</div>
               <div class="py-2 text-black text-xs font-medium">{{ item.quantity }}</div>
+              <div class="py-2 text-black text-xs font-medium">Wallet</div>
               <div class="py-2 text-xs" :class="getStateClass(item.state)">
                 {{ item.state }}
               </div>
@@ -63,12 +67,10 @@
       </div>
     </section>
   </div>
-  <DetailPop :data="orderData" @confirm="handleConfirm" v-if="showDetail" />
 </template>
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue';
-import DetailPop from './DetailPop.vue';
 
 const data = ref(
   Array.from({ length: 50 }, (_, i) => ({
@@ -80,25 +82,6 @@ const data = ref(
     state: i % 3 === 0 ? 'Completed' : i % 3 === 1 ? 'Pending' : 'Failed',
   }))
 );
-
-const showDetail = ref(false)
-
-const orderData = ref({
-  Date: '2024-01-15',
-  Type: 'Buy',
-  Total: '$1,250.00',
-  Quantity: '0.5 BTC',
-  Price: '$25,000.00',
-  State: 'Completed'
-});
-
-const handleShowDetail = () => {
-  showDetail.value = true
-};
-const handleConfirm = () => {
-  console.log('Confirmed!');
-  showDetail.value = false
-};
 
 // 桌面端分页逻辑
 const currentPage = ref(1);

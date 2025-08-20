@@ -1,5 +1,5 @@
 <template>
-  <aside class="w-64 flex flex-col min-h-[calc(100vh-6.5rem)]">
+  <aside class="w-64 min-h-[calc(100vh-6.5rem)]">
     <!-- 标题 -->
     <div class="pb-4">
       <h2 class="text-xl font-semibold text-gray-700">My Profile</h2>

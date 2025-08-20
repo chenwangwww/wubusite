@@ -7,19 +7,25 @@
         { 'bg-[#ff7445]': activeIndex === index, 'bg-white border border-[#7D7A7A]': activeIndex !== index },
       ]">
         <div :class="[
-          'text-[0.875rem] font-semibold', { 'text-white' : activeIndex===index, 'text-[#7D7A7A]' : activeIndex !==index
+          'md:text-sm text-xs font-semibold', { 'text-white' : activeIndex===index, 'text-[#7D7A7A]' : activeIndex !==index
           }, ]">
           {{ button }}
         </div>
       </div>
     </div>
-    <DepositOrders />
+    <DepositOrders v-if="activeIndex===0" />
+    <WithdrawOrders v-else-if="activeIndex===1" />
+    <BuyOrders v-else-if="activeIndex===2" />
+    <SellOrders v-else-if="activeIndex===3" />
   </section>
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import DepositOrders from './DepositOrders.vue';
+import WithdrawOrders from './WithdrawOrders.vue';
+import BuyOrders from './BuyOrders.vue';
+import SellOrders from './SellOrders.vue';
 
 const buttons = ['Deposit Orders', 'Withdraw Orders', 'Buy Order', 'Sell Order'];
 const activeIndex = ref(0); // 默认激活第一个按钮

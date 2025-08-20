@@ -84,7 +84,7 @@ const toggleLangMenu = () => {
 };
 
 const gotousercenter = () => {
-  router.push('/useRouter')
+  router.push('/usercenter')
 }
 
 // 选择英语
@@ -92,7 +92,6 @@ const selectEnglish = () => {
   showLangMenu.value = false;
 };
 
-// 切换移动菜单显示
 const toggleMobileMenu = () => {
   if (!showMobileMenu.value) {
     return
@@ -102,7 +101,6 @@ const toggleMobileMenu = () => {
   showLogin.value = showMobileMenu.value;
 };
 
-// 切换移动菜单显示
 const showMobileMenuFunc = () => {
   if (showMobileMenu.value) {
     return
