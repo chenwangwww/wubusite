@@ -138,8 +138,6 @@
 
     <Footer />
 
-    <!-- 警告消息弹窗 -->
-    <AlertMessage v-if="showAlert" @close="showAlert = false" />
   </div>
 </template>
 
@@ -148,7 +146,6 @@ import { ref } from 'vue';
 import Header from '../../components/Header.vue';
 import Footer from '../../components/Footer.vue';
 import TradingWindow from './TradingWindow.vue';
-import AlertMessage from './AlertMessage.vue';
 
 const showAlert = ref(false);
 </script>

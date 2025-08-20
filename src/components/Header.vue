@@ -14,7 +14,7 @@
       <div class="font-[700] text-[1.125rem] flex gap-x-[1.875rem] items-center relative">
         <div v-if="!userStore.userInfo.isLoggedIn"><RouterLink to="/login">LOGIN</RouterLink></div>
         <div v-if="!userStore.userInfo.isLoggedIn" class="text-white bg-[#FF7545] py-[0.5rem] px-[1.875rem] rounded-[6.25rem]"><RouterLink to="/register">REGISTER</RouterLink></div>
-        <img v-if="userStore.userInfo.isLoggedIn" src="@/assets/icons/mine.svg" alt="" class="w-[1.375rem] h-[1.375rem]" >
+        <img v-if="userStore.userInfo.isLoggedIn" @click="gotousercenter" src="@/assets/icons/mine.svg" alt="" class="w-[1.375rem] h-[1.375rem]" >
         <img src="@/assets/icons/globals.svg" alt="" class="w-[1.375rem] h-[1.375rem]" @click="toggleLangMenu">
         <div class="absolute bg-white top-full right-0 py-[0.375rem] shadow-2xl" v-show="showLangMenu">
           <div class="flex items-center px-[1rem] gap-x-[1rem] hover:bg-[#F4F4F5] text-[#202326] cursor-pointer"
@@ -43,7 +43,7 @@
         <div class="mb-[1.5rem]"><RouterLink to="/aboutus">ABOUT US</RouterLink></div>
         <div class="mb-[1.5rem]"><RouterLink to="/security">SECURITY</RouterLink></div>
         <div class="mb-[1.5rem]"><RouterLink to="/learn">LEARN</RouterLink></div>
-        <div class="mb-[1.5rem]"><RouterLink to="/learn">User Center</RouterLink></div>
+        <div class="mb-[1.5rem]"><RouterLink to="/usercenter">User Center</RouterLink></div>
 
         <div class="flex items-center justify-between mb-[1.5rem]" @click="toggleMobileLangs">
           <div>Language</div>
@@ -64,8 +64,10 @@
 <script setup>
 import { ref } from 'vue';
 import { useUserStore } from '@/stores/user'
+import { useRouter } from 'vue-router';
 
 const userStore = useUserStore()
+const router = useRouter()
 
 // 语言菜单状态
 const showLangMenu = ref(false);
@@ -80,6 +82,10 @@ const showLogin = ref(false);
 const toggleLangMenu = () => {
   showLangMenu.value = !showLangMenu.value;
 };
+
+const gotousercenter = () => {
+  router.push('/useRouter')
+}
 
 // 选择英语
 const selectEnglish = () => {

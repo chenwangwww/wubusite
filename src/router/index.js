@@ -74,6 +74,11 @@ const routes = [
         component: () => import('../views/auth/Forget.vue'),
     },
     {
+        path: '/usercenter',
+        name: 'usercenter',
+        component: () => import('../views/user/Center.vue'),
+    },
+    {
         path: '/tests',
         name: 'tests',
         component: () => import('../views/test/Test.vue'),
