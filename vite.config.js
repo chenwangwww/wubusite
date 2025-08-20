@@ -9,5 +9,17 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  }
+  },
+  server: {
+      host: "0.0.0.0",
+      port: 9998,
+      proxy: {
+        "/dev-api": {
+          target: "https://shon.aeaeaeae.com/",
+          changeOrigin: true,
+          ws: true,
+          rewrite: (path) => path.replace(new RegExp(`^/dev-api`), ""),
+        },
+      },
+    },
 })

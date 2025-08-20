@@ -21,6 +21,9 @@ export const useUserStore = defineStore('user', {
     authHeader: (state) => ({
       Authorization: `Bearer ${state.token}`
     }),
+
+    // 获取刷新认证头
+    getRefreshToken: (state) => state.refreshToken,
     
     // 检查token是否有效（简单示例）
     isTokenValid: (state) => {

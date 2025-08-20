@@ -1,6 +1,13 @@
 <template>
   <div class="bg-white rounded-[1.25rem] flex flex-col items-center relative md:px-12 py-6 mx-2">
-    <section class="w-full bg-white rounded-lg overflow-hidden shadow-sm">
+    <div v-if="!data || data.length === 0" class="flex items-center justify-center w-full h-64">
+      <div class="flex flex-col gap-y-2 justify-center">
+        <img :src="noDataSvg" />
+        <p class="text-gray-500 text-sm">No data available</p>
+      </div>
+    </div>
+
+    <section v-else class="w-full bg-white rounded-lg overflow-hidden shadow-sm">
       <div class="hidden md:block">
         <div class="grid grid-cols-6 gap-4 px-6 py-4 bg-[#FFF7F2] text-black font-semibold">
           <div class="text-center">Date</div>
@@ -69,6 +76,7 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import DetailPop from './DetailPop.vue';
+import noDataSvg from '../../../assets/icons/dashboard/noData.svg'
 
 const data = ref(
   Array.from({ length: 50 }, (_, i) => ({

@@ -7,14 +7,30 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Murecho:wght@100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Zen+Kaku+Gothic+New&display=swap"
     rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/animate.min.css">
+  <link rel="stylesheet" type="text/css" href="/animate.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vite + Vue</title>
 </head>
 
 <body οncοntextmenu='return false' onselectstart='return false' οnselect='document.selection.empty()'
-    οncοpy='document.selection.empty()' onbeforecopy='return false' οnmοuseup='document.selection.empty()'>
+  οncοpy='document.selection.empty()' onbeforecopy='return false' οnmοuseup='document.selection.empty()'>
   <div id="app"></div>
+  <div id="custom-alert" style="display:none;" class="fixed top-12 left-1/2 -translate-x-1/2 bg-gray-900 text-white px-4 py-2 rounded shadow">
+  </div>
+  <script>
+    function showAlert(msg) {
+      const el = document.getElementById("custom-alert");
+      el.textContent = msg;
+      el.style = "display: block";
+      
+      setTimeout(() => {
+        el.style = "display: none";
+      }, 3000); // 3秒后消失
+    }
+    window.showAlert = showAlert
+    // 调用
+    // showAlert("操作成功！");
+  </script>
   <script type="module" src="/src/main.js"></script>
 </body>
 

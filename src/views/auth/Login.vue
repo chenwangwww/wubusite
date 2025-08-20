@@ -1,8 +1,7 @@
 <template>
   <Header />
   <section
-    class="mx-auto 2xl:container mt-[3.3125rem] w-full h-[48.75rem] md:px-[7.5rem] px-[1.5rem] flex md:justify-between justify-center items-center pb-[5.0rem]"
-  >
+    class="mx-auto 2xl:container mt-[3.3125rem] w-full h-[48.75rem] md:px-[7.5rem] px-[1.5rem] flex md:justify-between justify-center items-center pb-[5.0rem]">
     <!-- 左侧内容 -->
     <div class="md:flex hidden flex-col w-full h-full justify-center items-center">
       <h4 class="text-[#FF7545] text-[2.25rem] font-[800] mb-[0.75rem]">Trade with confidence</h4>
@@ -14,21 +13,16 @@
     </div>
 
     <!-- 动态表单 -->
-    <component
-      :is="authRequired ? AuthenticatorForm : LoginForm"
-      :form="formData"
-      :errors="errors"
-      :api-error="apiError"
-      @submit="handleSubmit"
-      @clear-error="clearError"
-      class="py-[2.0625rem] px-[1.625rem] rounded-[1.25rem] shadow-[0_4px_20px_0px_rgba(0,0,0,0.1)] h-[43.75rem]"
-    />
+    <component :is="authRequired ? AuthenticatorForm : LoginForm" :form="formData" :errors="errors"
+      :api-error="apiError" @submit="handleSubmit" @clear-error="clearError"
+      class="py-[2.0625rem] px-[1.625rem] rounded-[1.25rem] shadow-[0_4px_20px_0px_rgba(0,0,0,0.1)] h-[43.75rem]" />
   </section>
   <Footer />
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import * as apiAuth from '@/api/auth.js'
 import { useRouter } from 'vue-router';
 import Header from '../../components/Header.vue';
 import Footer from '../../components/Footer.vue';
@@ -70,19 +64,19 @@ const handleSubmit = async (form) => {
 
     // 调用验证API
     try {
-      // const response = await authService.verify2fa(form);
-      // if (response.success) {
+      const datas = { email: "smb@gmail.com", password: "123456" }
+      const result = await apiAuth.loginApi(datas)
+      if (result.code == 0) {
+        console.log("data::", result.data)
         router.push('/home');
-      // } else {
-      //   apiError.value = response.message || "Verification failed";
-      // }
+      }
     } catch (error) {
       apiError.value = "An error occurred during verification";
     }
   } else {
     // 原始登录逻辑
     let isValid = true;
-    
+
     if (!form.email) {
       errors.value.email = "Email is required";
       isValid = false;
@@ -90,7 +84,7 @@ const handleSubmit = async (form) => {
       errors.value.email = "Invalid email format";
       isValid = false;
     }
-    
+
     if (!form.password) {
       errors.value.password = "Password is required";
       isValid = false;
@@ -105,8 +99,8 @@ const handleSubmit = async (form) => {
       // 模拟API调用返回需要2FA
       // const response = await authService.login(form);
       // if (response.authRequired) {
-        authRequired.value = true;
-        formData.value = { ...formData.value, ...form };
+      authRequired.value = true;
+      formData.value = { ...formData.value, ...form };
       // } else {
       //   router.push('/home');
       // }
