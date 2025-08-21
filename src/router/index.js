@@ -76,7 +76,62 @@ const routes = [
     {
         path: '/usercenter',
         name: 'usercenter',
+        redirect: '/usercenter/dashboard', 
         component: () => import('../views/user/Center.vue'),
+        children: [
+            {
+                path: 'dashboard',
+                component: () => import('../views/user/components/Dashboard.vue'),
+            },
+            {
+                path: 'cryptodeposit',
+                component: () => import('../views/crypto/CryptoDeposit.vue'),
+            },
+            {
+                path: 'orders',
+                component: () => import('../views/orders/Orders.vue'),
+            },
+            {
+                path: 'profile',
+                component: () => import('../views/profile/Profile.vue'),
+            },
+            {
+                path: 'bankaccount',
+                component: () => import('../views/bankAccount/BankAccount.vue'),
+            },
+            {
+                path: 'addbankaccount',
+                component: () => import('../views/bankAccount/AddBankAccount.vue'),
+            },
+            {
+                path: 'bankaccountcreated',
+                component: () => import('../views/bankAccount/BankAccountCreated.vue'),
+            },
+            {
+                path: 'depositcurrency',
+                component: () => import('../views/deposit/DepositCurrency.vue'),
+            },
+            {
+                path: 'depositcurrencyFinish',
+                component: () => import('../views/deposit/DepositCurrencyFinish.vue'),
+            },
+            {
+                path: 'ticket',
+                component: () => import('../views/tickets/SupportTickets.vue'),
+            },
+            {
+                path: 'addticket',
+                component: () => import('../views/tickets/AddTicket.vue'),
+            },
+            {
+                path: 'addticketsuccess',
+                component: () => import('../views/tickets/AddTicketSuccess.vue'),
+            },
+            {
+                path: 'usersecurity',
+                component: () => import('../views/usersecure/SecurityCenter.vue'),
+            },
+        ],
     },
     {
         path: '/tests',

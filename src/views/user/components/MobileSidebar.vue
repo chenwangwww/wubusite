@@ -76,6 +76,17 @@
       </transition>
     </div>
   </aside>
+  <RegularPop
+    v-if="showCloseAccount"
+    title="Close account"
+    body-text="Are You sure you want to close your account?"
+    confirm-text="Yes"
+    :showCancelButton="true"
+    cancelText="No"
+    @confirm="handleConfirm"
+    @cancel="handleConfirm"
+  >
+  </RegularPop>
 </template>
 
 <script setup lang="ts">
@@ -87,10 +98,14 @@ import Profilesvg from "@/assets/icons/dashboard/profile.svg";
 import Securesvg from "@/assets/icons/dashboard/security.svg";
 import Verisvg from "@/assets/icons/dashboard/verify.svg";
 import Accountsvg from "@/assets/icons/dashboard/account.svg";
+import { useRouter } from "vue-router";
+import RegularPop from "../../../components/RegularPop.vue";
 
 const activeItem = ref("dashboard");
 const isDropdownOpen = ref(false);
+const showCloseAccount = ref(false)
 
+const router = useRouter()
 const dashboardItems = [
   { name: "dashboard", label: "Dashboard", icon: Dashboardsvg },
   { name: "Orders", label: "Orders", icon: Orderssvg },
@@ -120,6 +135,23 @@ const toggleDropdown = () => {
 const setActiveAndClose = (item) => {
   activeItem.value = item.name;
   isDropdownOpen.value = false;
+  let name = item.name
+  if (name === 'dashboard') {
+    router.push('/usercenter/dashboard')
+  } else if (name === 'Orders') {
+    router.push('/usercenter/orders')
+  } else if (name === 'Profile') {
+    router.push('/usercenter/profile')
+  } else if (name === 'Support Tickets') {
+    router.push('/usercenter/ticket')
+  } else if (name === 'Security') {
+    router.push('/usercenter/usersecurity')
+  } else if (name === 'Close account') {
+    showCloseAccount.value = true
+  }
+};
+const handleConfirm = () => {
+  showCloseAccount.value = false
 };
 </script>
 
