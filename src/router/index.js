@@ -6,6 +6,7 @@ const routes = [
     {
         path: '/',
         name: 'home',
+        alias: '/home',
         component: HomeView
     },
     {
@@ -76,8 +77,11 @@ const routes = [
     {
         path: '/usercenter',
         name: 'usercenter',
-        redirect: '/usercenter/dashboard', 
+        redirect: '/usercenter/dashboard',
         component: () => import('../views/user/Center.vue'),
+        meta: {
+            requiresAuth: true  // 访问这个路由需要登录
+        },
         children: [
             {
                 path: 'dashboard',
@@ -174,17 +178,17 @@ const router = createRouter({
 })
 
 router.beforeEach((to) => {
-  const userStore = useUserStore()
-  
-  // 需要认证但未登录
-  if (to.meta.requiresAuth && !userStore.isLoggedIn) {
-    return '/login'
-  }
-  
-  // 已登录但访问登录页
-  if (to.path === '/login' && userStore.isLoggedIn) {
-    return '/home'
-  }
+    const userStore = useUserStore()
+
+    // 需要认证但未登录
+    if (to.meta.requiresAuth && !userStore.isLoggedIn) {
+        return '/login'
+    }
+
+    // 已登录但访问登录页
+    //   if (to.path === '/login' && userStore.isLoggedIn) {
+    //     return '/home'
+    //   }
 })
 
 export default router

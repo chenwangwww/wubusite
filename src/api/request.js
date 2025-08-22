@@ -60,9 +60,8 @@ axios.interceptors.response.use(
                     return refreshTokenMethod()
                         .then((res) => {
                             let newToken = res.data.accessToken
-                            tokenStore.setToken(res.data.accessToken)
+                            tokenStore.updateToken(res.data.accessToken)
                             tokenStore.setRefreshToken(res.data.refreshToken)
-                            tokenStore.setUserId(res.data.userId)
                             onRefreshed(newToken)
                             isRefreshing = false
 
@@ -72,9 +71,8 @@ axios.interceptors.response.use(
                         })
                         .catch(err => {
                             // isRefreshing = false
-                            tokenStore.setToken('')
+                            tokenStore.updateToken('')
                             tokenStore.setRefreshToken('')
-                            tokenStore.setUserId('')
 
                             return Promise.reject(err)
                         })

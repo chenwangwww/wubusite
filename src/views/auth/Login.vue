@@ -28,9 +28,12 @@ import Header from '../../components/Header.vue';
 import Footer from '../../components/Footer.vue';
 import LoginForm from './components/LoginForm.vue';
 import AuthenticatorForm from './components/AuthenticatorForm.vue';
+import { useUserStore } from '@/stores/user'
 
 const router = useRouter();
-const authRequired = ref(false); // 根据后端返回的auth值设置
+const authRequired = ref(false);
+const authShow = ref(true); // 根据后端返回的值设置
+const userStore = useUserStore()
 
 // 表单数据
 const formData = ref({
@@ -64,10 +67,12 @@ const handleSubmit = async (form) => {
 
     // 调用验证API
     try {
-      const datas = { email: "smb@gmail.com", password: "123456" }
+      const datas = formData.value
       const result = await apiAuth.loginApi(datas)
       if (result.code == 0) {
         console.log("data::", result.data)
+        userStore.loginSuccess(result.data);
+
         router.push('/home');
       }
     } catch (error) {
@@ -94,16 +99,21 @@ const handleSubmit = async (form) => {
     }
 
     if (!isValid) return;
+    console.log("wcsd");
 
     try {
-      // 模拟API调用返回需要2FA
-      // const response = await authService.login(form);
-      // if (response.authRequired) {
-      authRequired.value = true;
-      formData.value = { ...formData.value, ...form };
-      // } else {
-      //   router.push('/home');
-      // }
+      if (authShow.value) {
+        authRequired.value = true;
+        formData.value = { ...formData.value, ...form };
+      } else {
+        const datas = formData.value
+        const result = await apiAuth.loginApi(datas)
+        if (result.code == 0) {
+          console.log("data::", result.data)
+          userStore.loginSuccess(result.data);
+          router.push('/home');
+        }
+      }
     } catch (error) {
       apiError.value = "Login failed. Please try again.";
     }

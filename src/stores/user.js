@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    isLoggedIn: true,
+    isLoggedIn: false,
     email: '',
     phoneNumber: '',
     token: '',
@@ -54,6 +54,12 @@ export const useUserStore = defineStore('user', {
     updateToken(newToken) {
       this.token = newToken
       localStorage.setItem('userToken', newToken)
+    },
+
+    // 更新刷新token
+    setRefreshToken(newToken) {
+      this.refreshToken = newToken
+      localStorage.setItem('userRefreshToken', newToken)
     },
     
     // 从存储初始化（例如页面刷新后）
