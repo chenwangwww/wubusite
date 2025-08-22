@@ -39,7 +39,7 @@ const userStore = useUserStore()
 const formData = ref({
   email: '',
   password: '',
-  code: '',
+  otpCode: '',
 });
 
 // 错误信息
@@ -57,11 +57,11 @@ const clearError = (field) => {
 const handleSubmit = async (form) => {
   if (authRequired.value) {
     // 验证验证码
-    if (!form.code) {
-      errors.value.code = "Please enter your authenticator code";
+    if (!form.otpCode) {
+      errors.value.otpCode = "Please enter your authenticator otpCode";
       return;
-    } else if (!/^\d{6}$/.test(form.code)) {
-      errors.value.code = "Code must be 6 digits";
+    } else if (!/^\d{6}$/.test(form.otpCode)) {
+      errors.value.otpCode = "otpCode must be 6 digits";
       return;
     }
 
@@ -69,6 +69,7 @@ const handleSubmit = async (form) => {
     try {
       const datas = formData.value
       const result = await apiAuth.loginApi(datas)
+      
       if (result.code == 0) {
         console.log("data::", result.data)
         userStore.loginSuccess(result.data);
@@ -99,12 +100,16 @@ const handleSubmit = async (form) => {
     }
 
     if (!isValid) return;
-    console.log("wcsd");
 
     try {
       if (authShow.value) {
-        authRequired.value = true;
-        formData.value = { ...formData.value, ...form };
+
+        const result = await apiAuth.sendCodeApi(formData.value)
+        if (result.code == 0) {
+          window.showAlert('send email successful!')
+          authRequired.value = true;
+          formData.value = { ...formData.value, ...form };
+        }
       } else {
         const datas = formData.value
         const result = await apiAuth.loginApi(datas)

@@ -38,6 +38,7 @@ export default [
             }
         }
     },
+    // 刷新令牌
     {
         url: '/dev-api/app-api/member/auth/refresh-token',
         method: 'post',
@@ -66,4 +67,76 @@ export default [
             }
         }
     },
+
+    // 注册
+    {
+        url: '/dev-api/app-api/member/auth/signup',
+        method: 'post',
+        timeout: 1000,
+        response: ({ body }) => {
+            // 从请求体中获取 email 和 password
+            const { email, password } = body;
+
+            // 模拟验证：如果 email 和 password 都存在且非空，则视为有效
+            if (email && password) {
+                return {
+                    code: 0, // 假设注册成功时 code 为 0
+                    data: {
+                        userId: Random.integer(1000, 9999), // 模拟生成的 userId
+                        accessToken: 'mock_access_token_' + Math.random().toString(36).substring(2),
+                        refreshToken: 'mock_refresh_token_' + Math.random().toString(36).substring(2),
+                        expiresTime: new Date(Date.now() + 3600 * 1000).toISOString(), // 模拟一个小时后过期
+                        openid: 'mock_openid_' + Math.random().toString(36).substring(2)
+                    },
+                    msg: '注册成功'
+                };
+            } else {
+                return {
+                    code: 1073741824, // 模拟一个错误码
+                    data: null,
+                    msg: '邮箱和密码不能为空'
+                };
+            }
+        }
+    },
+
+    // 发送验证码
+    {
+        url: '/dev-api/app-api/member/auth/send-code',
+        method: 'post',
+        timeout: 1000,
+        response: ({ body }) => {
+            // 从请求体中获取 email 和 password
+            const { email } = body;
+
+            // 模拟验证：如果 email 和 password 都存在且非空，则视为有效
+            if (email) {
+                return {
+                    code: 0, // 假设注册成功时 code 为 0
+                    data: true,
+                    msg: '注册成功'
+                };
+            } else {
+                return {
+                    code: 1073741824, // 模拟一个错误码
+                    data: null,
+                    msg: '邮箱和密码不能为空'
+                };
+            }
+        }
+    },
+
+    // 登出
+    {
+        url: '/dev-api/app-api/member/auth/logout',
+        method: 'post',
+        timeout: 1000,
+        response: () => {
+            return {
+                code: 0, // 假设登出成功时 code 为 0
+                data: true,
+                msg: '登出成功'
+            };
+        }
+    }
 ]

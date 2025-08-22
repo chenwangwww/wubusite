@@ -93,8 +93,12 @@ import Verisvg from '../../../assets/icons/dashboard/verify.svg'
 import Accountsvg from '../../../assets/icons/dashboard/account.svg'
 import { useRouter } from "vue-router"
 import RegularPop from "../../../components/RegularPop.vue"
+import * as apiAuth from '@/api/auth.js'
+import { useUserStore } from '@/stores/user'
 
 const activeItem = ref("dashboard")
+const userStore = useUserStore()
+
 const router = useRouter()
 const showCloseAccount = ref(false)
 const dashboardItems = [
@@ -130,7 +134,18 @@ const setActive = (name: string) => {
   }
 }
 
-const handleConfirm = () => {
-  showCloseAccount.value = false
+const handleConfirm = async() => {
+  try {
+      const result = await apiAuth.logoutApi()
+      
+      if (result.code == 0) {
+        showCloseAccount.value = false
+        userStore.logout()
+        router.push('/login');
+      }
+    } catch (error) {
+      apiError.value = "An error occurred";
+    }
+
 };
 </script>

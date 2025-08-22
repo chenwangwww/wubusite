@@ -35,8 +35,8 @@ export const useUserStore = defineStore('user', {
     // 用户登录成功
     loginSuccess(payload) {
       this.isLoggedIn = true
-      this.email = payload.email
-      this.phoneNumber = payload.phoneNumber
+      // this.email = payload.email
+      // this.phoneNumber = payload.phoneNumber
       this.token = payload.token
       this.refreshToken = payload.refreshToken || ''
       

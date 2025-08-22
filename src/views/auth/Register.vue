@@ -1,21 +1,15 @@
 <template>
   <Header />
-  
+
   <!-- 步骤指示器 -->
   <div class="justify-center gap-4 mb-8 mt-8 md:flex hidden">
-    <div 
-      v-for="(step, index) in steps" 
-      :key="index"
-      @click="currentStep > index && goToStep(index)"
-      :class="{
-        'bg-[#FF7545] text-white': currentStep === index,
-        'bg-gray-200 cursor-pointer': currentStep > index,
-        'bg-gray-100': currentStep < index
-      }"
-      class="px-4 py-2 rounded-full flex items-center"
-    >
-      <span class="w-6 h-6 rounded-full bg-white text-[#FF7545] flex items-center justify-center mr-2" 
-            v-if="currentStep > index">✓</span>
+    <div v-for="(step, index) in steps" :key="index" @click="currentStep > index && goToStep(index)" :class="{
+      'bg-[#FF7545] text-white': currentStep === index,
+      'bg-gray-200 cursor-pointer': currentStep > index,
+      'bg-gray-100': currentStep < index
+    }" class="px-4 py-2 rounded-full flex items-center">
+      <span class="w-6 h-6 rounded-full bg-white text-[#FF7545] flex items-center justify-center mr-2"
+        v-if="currentStep > index">✓</span>
       <span v-else class="w-6 h-6 rounded-full bg-white/30 flex items-center justify-center mr-2">
         {{ index + 1 }}
       </span>
@@ -24,16 +18,9 @@
   </div>
 
   <!-- 动态表单组件 -->
-  <component
-    :is="steps[currentStep].component"
-    :form="formData"
-    :errors="errors"
-    :submit-success="submitStatus[currentStep]"
-    @update="handleUpdate"
-    @submit="handleStepSubmit"
-    @show-terms="showTermsPopup = true"
-    @hide-terms="showTermsPopup = false"
-  />
+  <component :is="steps[currentStep].component" :form="formData" :errors="errors"
+    :submit-success="submitStatus[currentStep]" @update="handleUpdate" @submit="handleStepSubmit"
+    @show-terms="showTermsPopup = true" @hide-terms="showTermsPopup = false" />
 
   <!-- 条款弹窗 -->
   <TermsPopup v-if="showTermsPopup" @close="showTermsPopup = false" />
@@ -50,26 +37,31 @@ import ContactInfoForm from './components/RegisterStepTwo.vue';
 import ServiceTypeForm from './components/RegisterStepThree.vue';
 import RegisterStepSuccess from './components/RegisterStepSuccess.vue';
 import TermsPopup from './components/TermsPopup.vue';
+import * as apiAuth from '@/api/auth.js'
+import * as apiMember from '@/api/member.js'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
 
 // 步骤配置
 const steps = [
-  { 
-    title: 'Account', 
+  {
+    title: 'Account',
     component: RegisterForm,
     fields: ['email', 'password', 'confirmPassword', 'agreeTerms']
   },
-  { 
-    title: 'Contact', 
+  {
+    title: 'Contact',
     component: ContactInfoForm,
     fields: ['firstName', 'lastName', 'phoneNumber', 'companyName']
   },
-  { 
-    title: 'Service Type', 
+  {
+    title: 'Service Type',
     component: ServiceTypeForm,
     fields: ['serviceType']
   },
-  { 
-    title: 'RegisterStepSuccess', 
+  {
+    title: 'RegisterStepSuccess',
     component: RegisterStepSuccess,
   },
 ];
@@ -83,10 +75,10 @@ const formData = ref({
   password: '',
   confirmPassword: '',
   agreeTerms: false,
-  
+
   // 服务类型
   serviceType: '',
-  
+
   // 联系信息
   firstName: '',
   lastName: '',
@@ -103,7 +95,7 @@ const showTermsPopup = ref(false);
 
 // 处理字段更新
 const handleUpdate = (field, value) => {
-  
+
   formData.value[field] = value;
   clearError(field);
 };
@@ -119,12 +111,12 @@ const clearError = (field) => {
 const handleStepSubmit = async () => {
   // 验证当前步骤必填字段
   const currentFields = steps[currentStep.value].fields;
-  
+
   let isValid = true;
-  
+
   for (const field of currentFields) {
     if (field === 'agreeTerms') continue;
-    
+
     if (!formData.value[field]) {
       errors.value[field] = getErrorMessage(field);
       isValid = false;
@@ -146,9 +138,10 @@ const handleStepSubmit = async () => {
 
   // 标记当前步骤为已完成
   submitStatus.value[currentStep.value] = true;
-  
+  console.log("currentStep:", currentStep.value, steps.length);
+
   // 如果是最后一步，提交所有数据
-  if (currentStep.value === steps.length - 1) {
+  if (currentStep.value === steps.length - 2) {
     await submitAllData();
   } else {
     // 否则进入下一步
@@ -181,10 +174,23 @@ const goToStep = (stepIndex) => {
 // 提交所有数据
 const submitAllData = async () => {
   try {
-    console.log('Submitting all data:', formData.value);
     // 这里添加实际的API调用
     // await api.submitForm(formData.value);
-    alert('Registration completed successfully!');
+    const result = await apiAuth.registerApi(formData.value)
+    if (result.code == 0) {
+      console.log("data::", result.data)
+      userStore.loginSuccess(result.data);
+
+      await apiMember.updateUserApi({
+        ...formData.value, 
+        company: formData.value.companyName, 
+        mobile: formData.value.phoneNumber,
+        firstname: formData.value.firstName,
+        lastname: formData.value.lastName,
+      })
+      currentStep.value++;
+
+    }
   } catch (error) {
     console.error('Submission error:', error);
     alert('There was an error submitting your data. Please try again.');
