@@ -131,6 +131,34 @@ const routes = [
                 path: 'usersecurity',
                 component: () => import('../views/usersecure/SecurityCenter.vue'),
             },
+            {
+                path: 'withdrawcurrency',
+                component: () => import('../views/withdraw/WithdrawCurrency.vue'),
+            },
+            {
+                path: 'withdrawcurrencysuccess',
+                component: () => import('../views/withdraw/WithCurrSeccess.vue'),
+            },
+            {
+                path: 'withdrawcrypto',
+                component: () => import('../views/withdraw/WithdrawCrypto.vue'),
+            },
+            {
+                path: 'wallet',
+                component: () => import('../views/wallet/WalletAccount.vue'),
+            },
+            {
+                path: 'walletadd',
+                component: () => import('../views/wallet/AddWallet.vue'),
+            },
+            {
+                path: 'walletsuccess',
+                component: () => import('../views/wallet/WalletSeccess.vue'),
+            },
+            {
+                path: 'verification',
+                component: () => import('../views/verification/Verification.vue'),
+            },
         ],
     },
     {

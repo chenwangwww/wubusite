@@ -8,7 +8,7 @@
       </div>
       <div>
         <button class="bg-[#FF7545] px-9 py-2 rounded-3xl mr-6"><RouterLink to="/usercenter/bankaccount">Deposit</RouterLink></button>
-        <button class="bg-black px-9 py-2 rounded-3xl text-white">Withdraw</button>
+        <button class="bg-black px-9 py-2 rounded-3xl text-white"><RouterLink to="/usercenter/withdrawcurrency">Withdraw</RouterLink></button>
       </div>
     </div>
 
@@ -31,7 +31,7 @@
       </div>
       <div>
         <button class="bg-[#FF7545] px-9 py-2 rounded-3xl mr-6"><RouterLink to="/usercenter/cryptodeposit">Deposit</RouterLink></button>
-        <button class="bg-black px-9 py-2 rounded-3xl text-white">Withdraw</button>
+        <button class="bg-black px-9 py-2 rounded-3xl text-white"><RouterLink to="/usercenter/withdrawcrypto">Withdraw</RouterLink></button>
       </div>
     </div>
 

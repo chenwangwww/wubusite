@@ -25,6 +25,7 @@ import SelectInput from '../../components/SelectInput.vue';
 import TextInput from '../../components/TextInput.vue';
 import ImageUploader from '../../components/ImageUploader.vue';
 import { useRouter } from 'vue-router';
+import UploadDefault from "../../assets/icons/dashboard/uploadDefault.svg"
 
 const router = useRouter()
 const subject = ref(null)

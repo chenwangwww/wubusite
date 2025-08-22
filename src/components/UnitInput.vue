@@ -51,19 +51,37 @@ const props = defineProps({
     type: [String, Number],
     default: '',
   },
+  // 改造点 1: unitValue 不再有默认值
   unitValue: {
     type: String,
-    default: 'USD',
+    default: '', // 默认值设为空字符串，这样才能正确地在 onMounted 中设置
   },
+  // 改造点 2: 接受来自父组件的可用单位列表
+  availableUnits: {
+    type: Array,
+    default: () => ['USD', 'AED'],
+  }
 });
 
 const emit = defineEmits(['update:modelValue', 'update:unitValue']);
 
-const availableUnits = ['USD', 'AED'];
 const selectedUnit = ref(props.unitValue);
 const isOpen = ref(false);
 const inputWrapperRef = ref(null);
 const inputWrapperWidth = ref(0);
+
+// 改造点 3: 在组件挂载时，如果 unitValue 为空，则将其设为 availableUnits 的第一个元素
+onMounted(() => {
+  if (!props.unitValue && props.availableUnits.length > 0) {
+    selectUnit(props.availableUnits[0]);
+  }
+  document.addEventListener('click', handleClickOutside);
+  updateWidth();
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutside);
+});
 
 watch(
   () => props.unitValue,
@@ -97,15 +115,6 @@ const handleClickOutside = (event) => {
     isOpen.value = false;
   }
 };
-
-onMounted(() => {
-  document.addEventListener('click', handleClickOutside);
-  updateWidth();
-});
-
-onUnmounted(() => {
-  document.removeEventListener('click', handleClickOutside);
-});
 </script>
 
 <style scoped>

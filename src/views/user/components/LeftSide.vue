@@ -125,6 +125,8 @@ const setActive = (name: string) => {
     router.push('/usercenter/usersecurity')
   } else if (name === 'Close account') {
     showCloseAccount.value = true
+  } else if (name === 'Verification') {
+    router.push('/usercenter/verification')
   }
 }
 

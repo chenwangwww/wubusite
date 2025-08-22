@@ -2,38 +2,44 @@
   <div class="image-uploader-container">
     <label v-if="label" :for="inputId" class="uploader-label">{{ label }}</label>
 
-    <div class="uploader-wrapper" 
-         :class="{ 'dragging': isDragging }"
-         @dragover.prevent="handleDragOver" 
-         @dragleave.prevent="handleDragLeave" 
-         @drop.prevent="handleDrop">
-      
-      <slot>
-        <div class="default-upload-area">
-          <img src="https://img.icons8.com/ios-filled/50/4B5563/upload.png" alt="upload icon" class="upload-icon"/>
-          <p class="text-gray-500">
-            <span class="text-blue-500 font-medium cursor-pointer" @click="openFilePicker">点击上传</span> 或拖放文件
-          </p>
+    <div
+      class="uploader-wrapper"
+      :class="{ 'dragging': isDragging }"
+      @dragover.prevent="handleDragOver"
+      @dragleave.prevent="handleDragLeave"
+      @drop.prevent="handleDrop"
+      @click="openFilePicker"
+    >
+      <div v-if="!previewUrl && !defaultImage" class="default-upload-area">
+        <div class="plus-icon-wrapper">
+          <!-- <svg class="plus-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg> -->
+          <img src="../assets/icons/dashboard/uploadDefault.svg" />
         </div>
-      </slot>
+      </div>
       
-      <input 
-        :id="inputId" 
-        type="file" 
-        class="hidden" 
-        accept="image/*" 
-        @change="handleFileChange" 
+      <div v-if="previewUrl || defaultImage" class="image-preview-wrapper">
+        <img
+          :src="previewUrl || defaultImage"
+          alt="Preview"
+          class="preview-image"
+        />
+        <button v-if="previewUrl" @click.stop="removeImage" class="remove-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+            <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
+          </svg>
+        </button>
+      </div>
+
+      <input
+        :id="inputId"
+        type="file"
+        class="hidden"
+        accept="image/*"
+        @change="handleFileChange"
         ref="fileInput"
       />
-    </div>
-
-    <div v-if="previewUrl" class="image-preview">
-      <img :src="previewUrl" alt="Image preview" class="preview-image"/>
-      <button @click="removeImage" class="remove-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
-          <path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z" />
-        </svg>
-      </button>
     </div>
 
     <p v-if="error" class="error-message">{{ error }}</p>
@@ -51,6 +57,10 @@ const props = defineProps({
   inputId: {
     type: String,
     required: true,
+  },
+  defaultImage: {
+    type: String,
+    default: '',
   },
 });
 
@@ -89,28 +99,23 @@ const processFile = (file) => {
     return;
   }
 
-  // 验证文件类型
   if (!file.type.startsWith('image/')) {
     error.value = '请选择一个图片文件。';
     return;
   }
 
-  // 验证文件大小 (可选)
   if (file.size > 2 * 1024 * 1024) { // 2MB
     error.value = '图片大小不能超过 2MB。';
     return;
   }
 
   error.value = '';
-  // 创建预览 URL
   previewUrl.value = URL.createObjectURL(file);
-  // 向父组件发送事件，传递文件对象
   emit('file-selected', file);
 };
 
 const removeImage = () => {
   previewUrl.value = '';
-  // 清空文件输入框，以便再次选择相同的文件
   if (fileInput.value) {
     fileInput.value.value = '';
   }
@@ -132,14 +137,14 @@ const removeImage = () => {
 }
 
 .uploader-wrapper {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 2px dashed #d1d5db;
   border-radius: 8px;
   cursor: pointer;
-  padding: 20px;
-  transition: border-color 0.3s;
+  overflow: hidden;
   min-height: 120px;
 }
 
@@ -148,32 +153,35 @@ const removeImage = () => {
   background-color: #f3f4f6;
 }
 
-.default-upload-area {
+.plus-icon-wrapper {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  text-align: center;
-  gap: 8px;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
 }
 
-.upload-icon {
+.plus-icon {
   width: 48px;
   height: 48px;
-  opacity: 0.6;
+  color: #d1d5db;
 }
 
-.image-preview {
-  position: relative;
+.image-preview-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: auto;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .preview-image {
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: contain;
   display: block;
 }
@@ -200,6 +208,6 @@ const removeImage = () => {
 .error-message {
   color: #ef4444;
   font-size: 12px;
-  margin-top: -4px;
+  margin-top: 4px;
 }
 </style>
