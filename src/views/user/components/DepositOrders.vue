@@ -1,42 +1,37 @@
 <template>
   <div class="bg-white rounded-[1.25rem] flex flex-col items-center relative md:px-12 py-6 mx-2">
-    <div v-if="!data || data.length === 0" class="flex items-center justify-center w-full h-64">
-      <div class="flex flex-col gap-y-2 justify-center">
-        <img :src="noDataSvg" />
-        <p class="text-gray-500 text-sm">No data available</p>
-      </div>
-    </div>
-
-    <section v-else class="w-full bg-white rounded-lg overflow-hidden shadow-sm">
+    <section class="w-full bg-white rounded-lg overflow-hidden shadow-sm">
       <div class="hidden md:block">
-        <div class="grid grid-cols-6 gap-4 px-6 py-4 bg-[#FFF7F2] text-black font-semibold">
-          <div class="text-center">Date</div>
+        <div class="grid grid-cols-7 gap-4 px-6 py-4 bg-[#FFF7F2] text-black font-semibold">
+          <div class="text-center">Order No.</div>
+          <div class="text-center">Currency Type</div>
+          <div class="text-center">Currency Name</div>
           <div class="text-center">Amount</div>
-          <div class="text-center">Currency</div>
-          <div class="text-center">rate</div>
-          <div class="text-center">State</div>
-          <div class="text-center">action</div>
+          <div class="text-center">Status</div>
+          <div class="text-center">Creation Time</div>
+          <div class="text-center">Action</div>
         </div>
         <div v-for="(item, index) in paginatedData" :key="index"
-          class="grid grid-cols-6 gap-4 px-6 py-4 border-b border-gray-100 hover:bg-gray-50">
-          <div class="text-center text-black">{{ item.date }}</div>
-          <div class="text-center text-black">{{ item.type }}</div>
-          <div class="text-center text-black">{{ item.total }}</div>
-          <div class="text-center text-black">{{ item.quantity }}</div>
+          class="grid grid-cols-7 gap-4 px-6 py-4 border-b border-gray-100 hover:bg-gray-50">
+          <div class="text-center text-black">{{ item.orderNo }}</div>
+          <div class="text-center text-black">{{ item.currencyType }}</div>
+          <div class="text-center text-black">{{ item.currencyName }}</div>
+          <div class="text-center text-black">{{ item.amount }}</div>
           <div class="text-center">
-            <span :class="getStateClass(item.state)" class="px-3 py-1 rounded-full text-xs font-medium">
-              {{ item.state }}
+            <span :class="getStateClass(item.orderStatus)" class="px-3 py-1 rounded-full text-xs font-medium">
+              {{ getOrderStatus(item.orderStatus) }}
             </span>
           </div>
-          <div class="text-center text-white bg-[#0ECB81] rounded-lg py-2" @click="handleShowDetail">Details</div>
+          <div class="text-center text-black">{{ item.createTime }}</div>
+          <div class="text-center text-white bg-[#0ECB81] rounded-lg py-2 h-[fit-content]" @click="handleShowDetail(item)">Details</div>
         </div>
         <div class="flex justify-center items-center mt-4 space-x-2">
-          <button @click="currentPage--" :disabled="currentPage <= 1" class="px-4 py-2 border rounded-md"
+          <button @click="getDataPrevious" :disabled="currentPage <= 1" class="px-4 py-2 border rounded-md"
             :class="{ 'opacity-50 cursor-not-allowed': currentPage <= 1 }">
             Previous
           </button>
           <span>Page {{ currentPage }} of {{ totalPages }}</span>
-          <button @click="currentPage++" :disabled="currentPage >= totalPages" class="px-4 py-2 border rounded-md"
+          <button @click="getDataNext" :disabled="currentPage >= totalPages" class="px-4 py-2 border rounded-md"
             :class="{ 'opacity-50 cursor-not-allowed': currentPage >= totalPages }">
             Next
           </button>
@@ -44,25 +39,28 @@
       </div>
 
       <div class="md:hidden max-h-[500px] overflow-y-auto" ref="mobileContainer">
-        <div v-for="(item, index) in visibleData" :key="index" class="border-b border-gray-100 py-4">
+        <div v-for="(item, index) in data" :key="index" class="border-b border-gray-100 py-4">
           <div class="grid grid-cols-[2fr_3fr] gap-0">
             <div class="space-y-0 text-left px-3">
-              <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">action</div>
-              <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">Date</div>
+              <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">Order No.</div>
+              <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">Currency Type</div>
+              <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">Currency Name</div>
               <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">Amount</div>
-              <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">Currency</div>
-              <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">rate</div>
-              <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">State</div>
+              <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">Status</div>
+              <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">Creation Time</div>
+              <div class="py-2 rounded-lg text-xs text-gray-600 font-medium">Action</div>
             </div>
             <div class="space-y-0 text-right px-3">
-              <div class="text-white bg-[#0ECB81] rounded-lg py-2 px-4 text-xs font-medium inline-block" @click="handleShowDetail">Details</div>
-              <div class="py-2 text-black text-xs font-medium">{{ item.date }}</div>
-              <div class="py-2 text-black text-xs font-medium">{{ item.type }}</div>
-              <div class="py-2 text-black text-xs font-medium">{{ item.total }}</div>
-              <div class="py-2 text-black text-xs font-medium">{{ item.quantity }}</div>
-              <div class="py-2 text-xs" :class="getStateClass(item.state)">
-                {{ item.state }}
+              <div class="py-2 text-black text-xs font-medium">{{ item.orderNo }}</div>
+              <div class="py-2 text-black text-xs font-medium">{{ item.currencyType }}</div>
+              <div class="py-2 text-black text-xs font-medium">{{ item.currencyName }}</div>
+              <div class="py-2 text-black text-xs font-medium">{{ item.amount }}</div>
+              <div class="py-2 text-xs" :class="getStateClass(item.orderStatus)">
+                {{ getOrderStatus(item.orderStatus) }}
               </div>
+              <div class="py-2 text-black text-xs font-medium">{{ item.createTime }}</div>
+              <div class="text-white bg-[#0ECB81] rounded-lg py-2 px-4 text-xs font-medium inline-block"
+                @click="handleShowDetail(item)">Details</div>
             </div>
           </div>
         </div>
@@ -75,74 +73,70 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue';
+import * as apiFunding from '@/api/funding.js';
 import DetailPop from './DetailPop.vue';
-import noDataSvg from '../../../assets/icons/dashboard/noData.svg'
 
-const data = ref(
-  Array.from({ length: 50 }, (_, i) => ({
-    date: `2024-01-${(i % 30) + 1}`,
-    type: i % 2 === 0 ? 'Buy' : 'Sell',
-    total: `$${(1250 + i * 10).toFixed(2)}`,
-    quantity: `${(0.5 + i * 0.01).toFixed(2)} BTC`,
-    price: `$${(25000 + i * 100).toFixed(2)}`,
-    state: i % 3 === 0 ? 'Completed' : i % 3 === 1 ? 'Pending' : 'Failed',
-  }))
-);
+const data = ref([]);
+const orderData = ref(null);
 
-const showDetail = ref(false)
-
-const orderData = ref({
-  Date: '2024-01-15',
-  Type: 'Buy',
-  Total: '$1,250.00',
-  Quantity: '0.5 BTC',
-  Price: '$25,000.00',
-  State: 'Completed'
-});
-
-const handleShowDetail = () => {
-  showDetail.value = true
-};
-const handleConfirm = () => {
-  console.log('Confirmed!');
-  showDetail.value = false
-};
-
-// 桌面端分页逻辑
 const currentPage = ref(1);
 const itemsPerPage = 10;
-const totalPages = computed(() => Math.ceil(data.value.length / itemsPerPage));
-const paginatedData = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
-  return data.value.slice(start, end);
-});
+const total = ref(0);
+const totalPages = computed(() => Math.ceil(total.value / itemsPerPage));
+const paginatedData = ref([]);
 
-// 移动端无限加载逻辑
-const visibleDataCount = ref(10);
+const showDetail = ref(false);
+
 const mobileContainer = ref(null);
 const loading = ref(false);
 
-const visibleData = computed(() => data.value.slice(0, visibleDataCount.value));
+const getData = async () => {
+  const result = await apiFunding.depositPageApi({
+    pageNo: currentPage.value,
+    pageSize: itemsPerPage,
+  });
+  if (result.code == 0) {
+    data.value = [...data.value, ...result.data.list];
+    paginatedData.value = result.data.list;
+    total.value = Number(result.data.total);
+  }
+};
 
-const handleScroll = () => {
+const handleShowDetail = (item) => {
+  orderData.value = item;
+  showDetail.value = true;
+};
+const handleConfirm = () => {
+  console.log('Confirmed!');
+  showDetail.value = false;
+};
+
+const handleScroll = async () => {
   if (mobileContainer.value) {
     const { scrollTop, scrollHeight, clientHeight } = mobileContainer.value;
 
-    // 检查是否滚动到接近底部
     if (scrollTop + clientHeight >= scrollHeight - 50 && !loading.value) {
-      if (visibleDataCount.value < data.value.length) {
+      if (data.value.length < total.value) {
         loading.value = true;
-        setTimeout(() => {
-          visibleDataCount.value += 10;
-          loading.value = false;
-        }, 500); // 模拟数据加载
+        currentPage.value++;
+        await getData();
+        loading.value = false;
       }
     }
   }
 };
 
+const getDataPrevious = () => {
+  currentPage.value--;
+  getData();
+};
+const getDataNext = () => {
+  currentPage.value++;
+  getData();
+};
+
 onMounted(() => {
+  getData();
   if (mobileContainer.value) {
     mobileContainer.value.addEventListener('scroll', handleScroll);
   }
@@ -154,16 +148,30 @@ onUnmounted(() => {
   }
 });
 
-const getStateClass = (state) => {
-  switch (state.toLowerCase()) {
-    case 'completed':
-      return 'text-green-800';
-    case 'pending':
+const getOrderStatus = (status) => {
+  switch (status) {
+    case 1:
+      return 'Pending';
+    case 2:
+      return 'Completed';
+    case 3:
+      return 'Failed';
+    default:
+      return 'Unknown';
+  }
+};
+
+const getStateClass = (status) => {
+  switch (status) {
+    case 1:
       return 'text-yellow-800';
-    case 'failed':
+    case 2:
+      return 'text-green-800';
+    case 3:
       return 'text-red-800';
     default:
       return 'text-gray-800';
   }
 };
+
 </script>
