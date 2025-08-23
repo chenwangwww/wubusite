@@ -21,7 +21,7 @@
       <p class="text-[#e60000] font-lato text-sm underline text-center w-full">Verification code not received？ Resend
       </p>
       <div class="flex gap-[2.5rem] w-full mt-10">
-        <div @click="$emit('confirm')"
+        <div @click="$emit('confirm', currentCode)"
           class="flex-1 bg-black rounded-[2.5rem] h-[2.75rem] flex items-center justify-center cursor-pointer">
           <div class="text-white font-lato text-base font-semibold leading-[3.875rem] whitespace-nowrap">Confirm</div>
         </div>

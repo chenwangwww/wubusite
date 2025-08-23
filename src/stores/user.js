@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import * as apiMember from '@/api/member.js'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -7,6 +8,7 @@ export const useUserStore = defineStore('user', {
     phoneNumber: '',
     token: '',
     refreshToken: '',
+    userData: {}
   }),
   
   getters: {
@@ -63,12 +65,19 @@ export const useUserStore = defineStore('user', {
     },
     
     // 从存储初始化（例如页面刷新后）
-    initializeFromStorage() {
+    async initializeFromStorage() {
       const token = localStorage.getItem('userToken')
       if (token) {
         this.token = token
         this.isLoggedIn = true
         // 这里可以添加API调用来获取完整的用户信息
+        const result = await apiMember.getUserApi()
+        if (result.code == 0) {
+          this.email = result.data.email
+          this.phoneNumber = result.data.mobile
+          this.userData = result.data
+          
+        }
       }
     },
     

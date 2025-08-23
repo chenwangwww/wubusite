@@ -17,3 +17,12 @@ export function resetPwdApi(data) {
     data
   })
 }
+
+// 获取个人信息
+export function getUserApi(params) {
+  return request({
+    url: `/member/user/get`,
+    method: 'get',
+    params
+  })
+}

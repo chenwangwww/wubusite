@@ -6,27 +6,27 @@
           <img class="absolute top-0 left-0 w-[4.375rem] h-[3.625rem]" src="@/assets/icons/trade/bank.svg"
             alt="Vector" />
         </div>
-        <p class="text-black font-lato text-xl font-bold text-center w-full">Are you sure you want to buy?</p>
+        <p class="text-black font-lato text-xl font-bold text-center w-full">Are you sure you want to trade?</p>
       </div>
 
       <div class="flex flex-col gap-[1.5rem] w-full mt-[2.125rem]">
         <div class="flex flex-col gap-[0.5rem] w-full">
           <div class="flex justify-around w-full">
-            <div class="text-[#7a7a7a]  text-lg font-medium leading-[3.875rem]">Spend</div>
-            <div class="text-[#7a7a7a]  text-lg font-medium leading-[3.875rem]">Receive</div>
+            <div class="text-[#7a7a7a]  text-lg font-medium leading-[3.875rem]">Spend</div>
+            <div class="text-[#7a7a7a]  text-lg font-medium leading-[3.875rem]">Receive</div>
           </div>
           <div
             class="bg-[#fff4ec] rounded-[1.25rem] h-[4.25rem] w-full relative flex items-center justify-between px-4">
-            <p class="text-black  text-xl font-medium">
-              <span class="tracking-[-0.06px]">213,000.00</span>
-              <span class="text-xs tracking-[-0.03px]">Usd</span>
+            <p class="text-black  text-xl font-medium">
+              <span class="tracking-[-0.06px]">{{ spendAmount }}</span>
+              <span class="text-xs tracking-[-0.03px]">{{ spendCurrency }}</span>
             </p>
             <div class="w-[3.125rem] h-[3.125rem] flex items-center justify-center">
               <img class="w-[1.625rem] h-[1.5625rem]" src="@/assets/icons/trade/exchangeBlack.svg" alt="Vector" />
             </div>
-            <p class="text-black  text-xl font-medium">
-              <span class="tracking-[-0.06px]">212,961.00</span>
-              <span class="text-xs tracking-[-0.03px]">Usdt</span>
+            <p class="text-black  text-xl font-medium">
+              <span class="tracking-[-0.06px]">{{ receiveAmount }}</span>
+              <span class="text-xs tracking-[-0.03px]">{{ receiveCurrency }}</span>
             </p>
           </div>
         </div>
@@ -34,13 +34,13 @@
         <div class="md:flex block md:justify-between md:items-center md:gap-x-12 w-full">
           <div class="flex items-center gap-x-1">
             <p class="text-[#5e5e5e] font-medium text-center">
-              Exchange Rate: 1 Usd</p>
+              Exchange Rate: 1 {{ spendCurrency }}</p>
             <img class="w-4 h-4" src="@/assets/icons/trade/exchangePink.svg" alt="Vector" />
             <p class="text-[#5e5e5e] font-medium text-center">
-              0.997 USDT</p>
+              {{ exchangeRate }} {{ receiveCurrency }}</p>
           </div>
-          <div class="text-[#00ac42]  text-sm font-medium">
-            Valid Until 2025-07-22 20:19</div>
+          <div class="text-[#00ac42]  text-sm font-medium">
+            Valid Until {{ expireTime }}</div>
         </div>
       </div>
 
@@ -59,6 +59,34 @@
 </template>
 
 <script setup>
-// 添加emit定义
+import { defineProps, defineEmits } from 'vue';
+
+const props = defineProps({
+  spendAmount: {
+    type: [Number, String],
+    required: true
+  },
+  spendCurrency: {
+    type: String,
+    required: true
+  },
+  receiveAmount: {
+    type: [Number, String],
+    required: true
+  },
+  receiveCurrency: {
+    type: String,
+    required: true
+  },
+  exchangeRate: {
+    type: [Number, String],
+    required: true
+  },
+  expireTime: {
+    type: String,
+    required: true
+  }
+});
+
 defineEmits(['close', 'confirm']);
 </script>

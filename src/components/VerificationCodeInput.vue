@@ -28,7 +28,7 @@
       @input="handleInput"
       @keydown="handleKeyDown"
       @blur="activeIndex = -1"
-      maxlength="4"
+      maxlength="6"
       inputmode="numeric"
       pattern="[0-9]*"
     />
@@ -38,7 +38,7 @@
 <script setup>
 import { ref, watch, nextTick, onMounted } from 'vue'
 
-const digits = ref(['', '', '', ''])
+const digits = ref(['', '', '', '', '', ''])
 const activeIndex = ref(0)
 const hiddenInput = ref(null)
 const inputValue = ref('')
@@ -59,25 +59,25 @@ const handleInput = (event) => {
   const newValue = event.target.value.replace(/[^0-9]/g, '')
   
   // 如果输入长度超过4，截断
-  if (newValue.length > 4) {
-    inputValue.value = newValue.slice(0, 4)
+  if (newValue.length > 6) {
+    inputValue.value = newValue.slice(0, 6)
     return
   }
   
   inputValue.value = newValue
   
   // 更新digits数组
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 6; i++) {
     digits.value[i] = newValue[i] || ''
   }
   
   // 自动前进到下一个输入框
-  if (newValue.length < 4 && newValue.length > activeIndex.value) {
+  if (newValue.length < 6 && newValue.length > activeIndex.value) {
     activeIndex.value = newValue.length
   }
   
   // 如果输入完成，触发完成事件
-  if (newValue.length === 4) {
+  if (newValue.length === 6) {
     emit('complete', newValue)
   }
   
@@ -93,7 +93,7 @@ const handleKeyDown = (event) => {
       inputValue.value = newValue
       
       // 更新digits数组
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 6; i++) {
         digits.value[i] = newValue[i] || ''
       }
       
@@ -121,7 +121,7 @@ const handleKeyDown = (event) => {
       const newValue = inputValue.value.slice(0, activeIndex.value) + inputValue.value.slice(activeIndex.value + 1)
       inputValue.value = newValue
       
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 6; i++) {
         digits.value[i] = newValue[i] || ''
       }
       
