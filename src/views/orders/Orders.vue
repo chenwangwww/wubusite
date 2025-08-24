@@ -15,7 +15,7 @@
         <TextInput inputId="amountid" label="Amount" placeholder="please input" v-model="amount" />
 
         <div class="flex justify-center items-center">
-          <div class="bg-black w-full text-white md:text-xl text-base font-semibold flex justify-center items-center py-3 gap-x-5 px-9 rounded-lg">
+          <div @click="searchFunc" class="bg-black w-full text-white md:text-xl text-base font-semibold flex justify-center items-center py-3 gap-x-5 px-9 rounded-lg">
             <img src="../../assets//icons//dashboard/search.svg" class="md:w-10 w-6" />
             <span>Search</span>
           </div>
@@ -31,6 +31,7 @@ import DatePicker from '../../components/DatePicker.vue';
 import SelectInput from '../../components/SelectInput.vue';
 import TextInput from '../../components/TextInput.vue';
 import BottomOrders from '../user/components/BottomOrders.vue';
+import Bus from '@/utils/eventBus'
 import { ref } from 'vue';
 
 const beginDate = ref(''); // 用于存储选中的日期，格式为 YYYY-MM-DD
@@ -47,4 +48,13 @@ const orderStatusOptions = ref([
   { value: '6', text: 'Canceled' },
   { value: '7', text: 'Expired' },
 ]);
+
+const searchFunc = () => {
+  Bus.emit('search-order', {
+    beginDate: beginDate.value,
+    endDate: endDate.value,
+    amount: amount.value,
+    orderStatus: selectedStatus.value
+  })
+}
 </script>

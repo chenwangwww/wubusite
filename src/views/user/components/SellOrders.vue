@@ -75,6 +75,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import * as apiMarket from '@/api/market.js';
 import DetailPop from './DetailPop.vue';
+import Bus from '@/utils/eventBus'
 
 const data = ref([]);
 const sellData = ref(null);
@@ -90,17 +91,23 @@ const showDetail = ref(false)
 const mobileContainer = ref(null);
 const loading = ref(false);
 
-const getData = async () => {
-  const result = await apiMarket.getOrdersApi({
+const getData = async (params = {}) => {
+  let pa = {
     pageNo: currentPage.value,
     pageSize: itemsPerPage,
     orderType: 2,
-  })
+    ...params
+  }
+  const result = await apiMarket.getOrdersApi(pa)
   if (result.code == 0) {
     data.value = [...data.value, ...result.data.list]
     paginatedData.value = result.data.list
     total.value = Number(result.data.total)
   }
+}
+const getD = (params) => {
+  currentPage.value = 1
+  getData(params)
 }
 
 const handleShowDetail = (item) => {
@@ -137,6 +144,8 @@ const getDataNext = () => {
 }
 
 onMounted(() => {
+  Bus.on("search-order", getD)
+
   getData();
   if (mobileContainer.value) {
     mobileContainer.value.addEventListener('scroll', handleScroll);
@@ -144,6 +153,8 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+  Bus.off("search-order", getD)
+
   if (mobileContainer.value) {
     mobileContainer.value.removeEventListener('scroll', handleScroll);
   }

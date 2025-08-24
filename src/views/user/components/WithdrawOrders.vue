@@ -23,7 +23,8 @@
             </span>
           </div>
           <div class="text-center text-black">{{ item.createTime }}</div>
-          <div class="text-center text-white bg-[#0ECB81] rounded-lg py-2 h-[fit-content]" @click="handleShowDetail(item)">Details</div>
+          <div class="text-center text-white bg-[#0ECB81] rounded-lg py-2 h-[fit-content]"
+            @click="handleShowDetail(item)">Details</div>
         </div>
         <div class="flex justify-center items-center mt-4 space-x-2">
           <button @click="getDataPrevious" :disabled="currentPage <= 1" class="px-4 py-2 border rounded-md"
@@ -75,6 +76,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import * as apiFunding from '@/api/funding.js';
 import DetailPop from './DetailPop.vue';
+import Bus from '@/utils/eventBus'
 
 const data = ref([]);
 const withdrawData = ref(null);
@@ -90,11 +92,13 @@ const showDetail = ref(false)
 const mobileContainer = ref(null);
 const loading = ref(false);
 
-const getData = async () => {
-  const result = await apiFunding.withdrawPageApi({
+const getData = async (params = {}) => {
+  let pa = {
     pageNo: currentPage.value,
     pageSize: itemsPerPage,
-  })
+    ...params
+  }
+  const result = await apiFunding.withdrawPageApi(pa)
   if (result.code == 0) {
     data.value = [...data.value, ...result.data.list]
     paginatedData.value = result.data.list
@@ -134,8 +138,12 @@ const getDataNext = () => {
   currentPage.value++
   getData()
 }
-
+const getD = (params) => {
+  currentPage.value = 1
+  getData(params)
+}
 onMounted(() => {
+  Bus.on("search-order", getD)
   getData();
   if (mobileContainer.value) {
     mobileContainer.value.addEventListener('scroll', handleScroll);
@@ -143,6 +151,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+  Bus.off("search-order", getD)
   if (mobileContainer.value) {
     mobileContainer.value.removeEventListener('scroll', handleScroll);
   }

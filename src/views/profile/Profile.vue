@@ -26,7 +26,8 @@
 
         <TextInput inputId="emailid" label="Email" placeholder="please input" v-model="email" />
         <div class="flex gap-[2.5rem] w-full">
-          <div class="flex-1 bg-black rounded-xl h-[2.75rem] md:h-[3.5rem] flex items-center justify-center cursor-pointer">
+          <div @click="submitUpdate"
+            class="flex-1 bg-black rounded-xl h-[2.75rem] md:h-[3.5rem] flex items-center justify-center cursor-pointer">
             <div class="text-white font-lato text-base font-semibold leading-[3.875rem] whitespace-nowrap">Submit</div>
           </div>
         </div>
@@ -39,7 +40,8 @@
 <script setup>
 import SelectInput from '../../components/SelectInput.vue';
 import TextInput from '../../components/TextInput.vue';
-import { ref } from 'vue';
+import * as apiMember from '@/api/member.js'
+import { onMounted, ref } from 'vue';
 
 const firstname = ref(null)
 const lastname = ref(null)
@@ -47,4 +49,26 @@ const companyName = ref(null)
 const mobile = ref(null)
 const email = ref(null)
 
+const getProfile = async () => {
+  const result = await apiMember.getUserApi()
+  if (result.code == 0) {
+    firstname.value = result.data.firstname
+    lastname.value = result.data.lastname
+    mobile.value = result.data.mobile
+    email.value = result.data.email
+    companyName.value = result.data.company
+
+  }
+}
+
+const submitUpdate = async () => {
+  const result = await apiMember.updateUserApi()
+  if (result.code == 0) {
+    window.showAlert('Update successful')
+  }
+}
+
+onMounted(() => {
+getProfile()
+})
 </script>

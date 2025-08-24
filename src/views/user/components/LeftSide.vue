@@ -83,7 +83,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { onMounted, ref } from "vue"
 import Dashboardsvg from '../../../assets/icons/dashboard/dashboard.svg'
 import Orderssvg from '../../../assets/icons/dashboard/orders.svg'
 import Ticketsvg from '../../../assets/icons/dashboard/tickets.svg'
@@ -91,14 +91,14 @@ import Profilesvg from '../../../assets/icons/dashboard/profile.svg'
 import Securesvg from '../../../assets/icons/dashboard/security.svg'
 import Verisvg from '../../../assets/icons/dashboard/verify.svg'
 import Accountsvg from '../../../assets/icons/dashboard/account.svg'
-import { useRouter } from "vue-router"
+import { useRoute, useRouter } from "vue-router"
 import RegularPop from "../../../components/RegularPop.vue"
 import * as apiAuth from '@/api/auth.js'
 import { useUserStore } from '@/stores/user'
 
 const activeItem = ref("dashboard")
 const userStore = useUserStore()
-
+const route = useRoute()
 const router = useRouter()
 const showCloseAccount = ref(false)
 const dashboardItems = [
@@ -148,4 +148,21 @@ const handleConfirm = async() => {
     }
 
 };
+
+onMounted(()=>{
+  let path = route.path
+  if (path.includes('dashboard')) {
+    activeItem.value = 'dashboard'
+  } else if (path.includes('orders')) {
+    activeItem.value = 'Orders'
+  } else if (path.includes('profile')) {
+    activeItem.value = 'Profile'
+  } else if (path.includes('ticket')) {
+    activeItem.value = 'Support Tickets'
+  } else if (path.includes('usersecurity')) {
+    activeItem.value = 'Security'
+  } else if (path.includes('verification')) {
+    activeItem.value = 'Verification'
+  } 
+})
 </script>

@@ -31,7 +31,7 @@ export default [
                 };
             } else {
                 return {
-                    code: 401, // 未授权状态码
+                    code: 402, // 未授权状态码
                     data: null,
                     msg: '邮箱或密码错误'
                 };
@@ -60,7 +60,7 @@ export default [
                 };
             } else {
                 return {
-                    code: 401, // 未授权状态码
+                    code: 402, // 未授权状态码
                     data: null,
                     msg: '无效的刷新 Token'
                 };

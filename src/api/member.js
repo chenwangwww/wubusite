@@ -9,6 +9,15 @@ export function updateUserApi(data) {
   })
 }
 
+// 修改用户密码密码
+export function updatePwdApi(data) {
+  return request({
+    url: `/member/user/update-password`,
+    method: 'put',
+    data
+  })
+}
+
 // 重置密码
 export function resetPwdApi(data) {
   return request({

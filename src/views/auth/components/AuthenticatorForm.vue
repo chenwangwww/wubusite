@@ -2,10 +2,6 @@
   <div class="flex flex-col justify-center md:gap-y-[4rem] gap-y-4 h-[38rem]">
     <h2 class="text-[#202326] md:text-[2.5rem] text-[1.375rem] font-[800] mb-[0.75rem]">Verify Authenticator</h2>
     
-    <div v-if="apiError" class="mb-[1.25rem] text-[0.875rem] text-red-500">
-      {{ apiError }}
-    </div>
-
     <form @submit.prevent="$emit('submit', form)">
       <!-- 验证码输入 -->
       <label class="md:text-[1.25rem] text-md font-[600]">Authenticator App Code</label><br>
@@ -21,9 +17,12 @@
         class="wuBuTip md:w-[33.0rem] w-full border rounded-2xl py-[0.75rem] px-[1.5rem] text-[1.25rem] block text-center tracking-[0.5rem]"
         placeholder="••••••"
       >
-      <div v-if="errors.otpCode" class="mb-[1.25rem] text-[0.625rem] text-red-400">
+      <div v-if="errors.otpCode" class="mb-4 text-sm text-red-400">
         {{ errors.otpCode }}
       </div>
+      <div v-if="apiError" class="mb-4 text-sm text-red-500">
+      {{ apiError }}
+    </div>
 
       <div class="flex items-center mt-[1.5rem]">
         <label class="text-[1.0rem] text-[#8D8D8D]">

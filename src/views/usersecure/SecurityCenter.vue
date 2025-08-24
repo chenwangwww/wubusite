@@ -10,6 +10,15 @@
         v-model="newPassword" />
       <TextInput inputId="ConfirmPwd-input" label="Confirm New Password" placeholder="confirm new password"
         v-model="ConfirmPwd" />
+      <div class="grid grid-cols-3 gap-x-3">
+        <div class="col-span-2">
+          <TextInput inputId="codecto-input" label="Email Code" placeholder="confirm code" v-model="code" />
+        </div>
+        <div class="col-span-1 flex items-end">
+          <CountdownButton class="md:!py-3 !py-2" button-text="Send" countdown-title="{s}s" :seconds="60"
+            @click="sendCode" />
+        </div>
+      </div>
     </div>
 
     <div
@@ -39,15 +48,52 @@ import { ref } from 'vue';
 import TextInput from '../../components/TextInput.vue';
 import RadioButton from '../../components/RadioButton.vue';
 import { useRouter } from 'vue-router';
+import CountdownButton from '../../components/CountdownButton.vue'; // Make sure the path is correct
+import { useUserStore } from '@/stores/user'
+import * as apiAuth from '@/api/auth.js'
+import * as apiMember from '@/api/member.js'
 
 const password = ref(null);
 const newPassword = ref(null);
 const ConfirmPwd = ref(null);
+const code = ref(null);
+const userStore = useUserStore()
 
 const isAgreed = ref(false);
 
 const router = useRouter()
 
-const handlePwd = () => {
+const handlePwd = async() => {
+  if (newPassword.value !== ConfirmPwd.value) {
+    window.showAlert('Password confirmation does not match');
+    return
+  }
+  try {
+    const result = await apiMember.updatePwdApi({
+      'code': code.value,
+      'password': newPassword.value, // Pass the new password
+    });
+
+    if (result.code == 0) {
+      window.showAlert('Password updated.');
+    } else {
+      window.showAlert(result.msg || 'Password reset failed.');
+    }
+  } catch (error) {
+    window.showAlert("Failed to update password. Please try again.");
+  }
 }
+
+const sendCode = async (startCountdownCallback) => {
+
+  try {
+    const result = await apiAuth.sendCodeApi({ 'email': userStore.email });
+    if (result.code == 0) {
+      startCountdownCallback();
+      window.showAlert('send email successful!');
+    }
+  } catch (error) {
+    window.showAlert("Failed to send email. Please try again.");
+  }
+};
 </script>

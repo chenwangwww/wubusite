@@ -38,7 +38,7 @@
         <img src="@/assets/icons/menu.svg" alt="" class="w-[1.5rem] h-[1.5rem]" @click.stop="showMobileMenuFunc">
       </div>
       <div v-show="showMobileMenu" v-click-outside="toggleMobileMenu"
-        class="absolute top-full left-0 w-full bg-white py-[2rem] px-[1.5rem] text-[#2F2F2F] font-[700] text-[1rem]">
+        class="z-[999] absolute top-full left-0 w-full bg-white py-[2rem] px-[1.5rem] text-[#2F2F2F] font-[700] text-[1rem]">
         <div class="mb-[1.5rem]"><RouterLink to="/">HOME</RouterLink></div>
         <div class="mb-[1.5rem]"><RouterLink to="/aboutus">ABOUT US</RouterLink></div>
         <div class="mb-[1.5rem]"><RouterLink to="/security">SECURITY</RouterLink></div>

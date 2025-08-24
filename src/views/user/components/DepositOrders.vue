@@ -75,6 +75,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import * as apiFunding from '@/api/funding.js';
 import DetailPop from './DetailPop.vue';
+import Bus from '@/utils/eventBus'
 
 const data = ref([]);
 const orderData = ref(null);
@@ -90,17 +91,24 @@ const showDetail = ref(false);
 const mobileContainer = ref(null);
 const loading = ref(false);
 
-const getData = async () => {
-  const result = await apiFunding.depositPageApi({
+const getData = async (params = {}) => {
+  let pa = {
     pageNo: currentPage.value,
     pageSize: itemsPerPage,
-  });
+    ...params
+  }
+  const result = await apiFunding.depositPageApi(pa);
   if (result.code == 0) {
     data.value = [...data.value, ...result.data.list];
     paginatedData.value = result.data.list;
     total.value = Number(result.data.total);
   }
 };
+
+const getD = (params) => {
+  currentPage.value = 1
+  getData(params)
+}
 
 const handleShowDetail = (item) => {
   orderData.value = item;
@@ -136,6 +144,8 @@ const getDataNext = () => {
 };
 
 onMounted(() => {
+  Bus.on("search-order", getD)
+
   getData();
   if (mobileContainer.value) {
     mobileContainer.value.addEventListener('scroll', handleScroll);
@@ -143,6 +153,8 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+  Bus.off("search-order", getD)
+
   if (mobileContainer.value) {
     mobileContainer.value.removeEventListener('scroll', handleScroll);
   }
