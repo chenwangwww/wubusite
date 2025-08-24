@@ -151,4 +151,56 @@ export default [
             };
         }
     },
+
+    // 启用OTP验证码
+    {
+        url: '/dev-api/app-api/member/user/otp/enable',
+        method: 'post',
+        timeout: 1000,
+        response: () => {
+
+            return {
+                code: 0,
+                data: true,
+                msg: ''
+            };
+        }
+    },
+
+    // 禁用OTP验证码
+    {
+        url: '/dev-api/app-api/member/user/otp/disable',
+        method: 'post',
+        timeout: 1000,
+        response: () => {
+
+            return {
+                code: 0,
+                data: true,
+                msg: ''
+            };
+        }
+    },
+
+    // 获取OTP设置信息
+    {
+        url: '/dev-api/app-api/member/user/otp/setup',
+        method: 'get',
+        timeout: 1000,
+        response: () => {
+
+            return {
+                code: 0,
+                data: {
+                    "enabled": true,
+                    "secret": "JBSWY3DPEHPK3PXP",
+                    "qrCodeUrl": "otpauth://totp/Example:alice@google.com?secret=JBSWY3DPEHPK3PXP&issuer=Example",
+                    "backupCodes": [
+                        "string"
+                    ]
+                },
+                msg: ''
+            };
+        }
+    },
 ]

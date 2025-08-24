@@ -26,10 +26,12 @@ import TextInput from '../../components/TextInput.vue';
 import ImageUploader from '../../components/ImageUploader.vue';
 import { useRouter } from 'vue-router';
 import UploadDefault from "../../assets/icons/dashboard/uploadDefault.svg"
+import * as apiTicket from '@/api/ticket.js'
 
 const router = useRouter()
 const subject = ref(null)
 const orderselected = ref(null)
+let fileUp = null
 const orderOptions = ref([
   { value: '1', text: 'All' },
   { value: '2', text: 'Completed' },
@@ -43,9 +45,18 @@ const orderOptions = ref([
 const handleImageSelected = (file) => {
   console.log('选择的文件:', file);
   // 这里可以处理文件上传逻辑，例如使用 FormData
+  fileUp = file;
 };
 
-const gotofinish = () => {
-  router.push('/usercenter/addticketsuccess')
+const gotofinish = async() => {
+  let d = {
+    subject: subject.value,
+    orderType: orderselected.value,
+    credential: fileUp
+  }
+  let result = await apiTicket.createTicketApi(d)
+  if (result.code == 0) {
+    router.push('/usercenter/addticketsuccess')
+  }
 }
 </script>

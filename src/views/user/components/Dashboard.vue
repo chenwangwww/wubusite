@@ -6,7 +6,7 @@
         <div class="font-semibold text-xl">Fiat account</div>
         <div class="font-bold text-3xl flex items-center gap-x-4 relative">
           <div>
-            0.00
+            {{ selectFiat }}
             <span class="text-xl">{{ selectedFiatCurrency }}</span>
           </div>
           <img class="w-6" src="../../../assets/icons/dashboard/arrowDown.svg" @click.stop="showmoreFiat" />
@@ -18,8 +18,12 @@
         </div>
       </div>
       <div>
-        <button class="bg-[#FF7545] md:px-9 px-6 py-2 rounded-3xl md:mr-6 mr-3"><RouterLink to="/usercenter/bankaccount">Deposit</RouterLink></button>
-        <button class="bg-black md:px-9 px-6 py-2 rounded-3xl text-white"><RouterLink to="/usercenter/withdrawcurrency">Withdraw</RouterLink></button>
+        <button class="bg-[#FF7545] md:px-9 px-6 py-2 rounded-3xl md:mr-6 mr-3">
+          <RouterLink to="/usercenter/bankaccount">Deposit</RouterLink>
+        </button>
+        <button class="bg-black md:px-9 px-6 py-2 rounded-3xl text-white">
+          <RouterLink to="/usercenter/withdrawcurrency">Withdraw</RouterLink>
+        </button>
       </div>
     </div>
 
@@ -29,7 +33,7 @@
         <div class="font-semibold text-xl">crypto currency</div>
         <div class="font-bold text-3xl flex items-center gap-x-4 relative">
           <div>
-            0.00
+            {{ selectCrypto }}
             <span class="text-xl">{{ selectedCryptoCurrency }}</span>
           </div>
           <img class="w-6" src="../../../assets/icons/dashboard/arrowDown.svg" @click.stop="showmore" />
@@ -41,8 +45,12 @@
         </div>
       </div>
       <div>
-        <button class="bg-[#FF7545] md:px-9 px-6 py-2 rounded-3xl md:mr-6 mr-3"><RouterLink to="/usercenter/cryptodeposit">Deposit</RouterLink></button>
-        <button class="bg-black md:px-9 px-6 py-2 rounded-3xl text-white"><RouterLink to="/usercenter/withdrawcrypto">Withdraw</RouterLink></button>
+        <button class="bg-[#FF7545] md:px-9 px-6 py-2 rounded-3xl md:mr-6 mr-3">
+          <RouterLink to="/usercenter/cryptodeposit">Deposit</RouterLink>
+        </button>
+        <button class="bg-black md:px-9 px-6 py-2 rounded-3xl text-white">
+          <RouterLink to="/usercenter/withdrawcrypto">Withdraw</RouterLink>
+        </button>
       </div>
     </div>
 
@@ -67,14 +75,17 @@
 <script setup>
 import BottomOrders from './BottomOrders.vue';
 import arrowRight from '../../../assets/icons/dashboard/arrowLeft.svg'
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import * as apiMember from '@/api/member.js'
 
 const showMoreCrypto = ref(false)
 const showMoreFiat = ref(false)
 const selectedFiatCurrency = ref('USD')
 const selectedCryptoCurrency = ref('USDT')
-
+const selectFiat = ref(0.00)
+const selectCrypto = ref(0.00)
+const info = ref(null)
 const router = useRouter()
 
 const HideMoreCrypto = () => {
@@ -95,11 +106,34 @@ const showmoreFiat = () => {
 
 const selectFiatCurrency = (currency) => {
   selectedFiatCurrency.value = currency;
+  if (currency == 'USD') {
+    selectFiat.value = info.value.usdBalance
+  } else if (currency == 'AED') {
+    selectFiat.value = info.value.aedBalance
+  }
   HideMoreFiat();
 };
 
 const selectCryptoCurrency = (currency) => {
   selectedCryptoCurrency.value = currency;
+  if (currency == 'USDT') {
+    selectCrypto.value = info.value.usdtBalance
+  } else if (currency == 'USDC') {
+    selectCrypto.value = info.value.usdcBalance
+  }
   HideMoreCrypto();
 };
+
+const getInfo = async () => {
+  const result = await apiMember.getUserApi()
+  if (result.code == 0) {
+    info.value = result.data
+    selectFiat.value = info.value.usdBalance
+    selectCrypto.value = info.value.usdtBalance
+  }
+}
+
+onMounted(() => {
+  getInfo()
+})
 </script>

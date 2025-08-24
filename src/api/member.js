@@ -35,3 +35,30 @@ export function getUserApi(params) {
     params
   })
 }
+
+// 启用OTP验证码
+export function enableOTPApi(data) {
+  return request({
+    url: `/member/user/otp/enable`,
+    method: 'post',
+    data
+  })
+}
+
+// 禁用OTP验证码
+export function disableOTPApi(data) {
+  return request({
+    url: `/member/user/otp/disable`,
+    method: 'post',
+    data
+  })
+}
+
+// 获取OTP设置信息
+export function getOTPSetupApi(params) {
+  return request({
+    url: `/member/user/otp/setup`,
+    method: 'get',
+    params
+  })
+}

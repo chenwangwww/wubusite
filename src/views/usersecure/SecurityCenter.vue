@@ -35,7 +35,10 @@
       <span class=" text-lg">If our 2FA is enabled, we will require from you every time when login to confirm
         a code which we will send to your email address.</span>
     </div>
-    <RadioButton v-model="isAgreed" label="Enable Two-Factor Authorization" class="font-semibold text-base" />
+    <RadioButton v-model="isAgreed" label="Enable Two-Factor Authorization" class="font-semibold text-base"
+      @update:modelValue="handleChange" />
+    <div ref="imgContainer" class="my-2 flex justify-center items-center"></div>
+
     <div
       class="bg-[#FF7545] rounded-lg h-[2.75rem] md:h-[3.5rem] flex items-center justify-center cursor-pointer my-4 mx-4">
       <div class="text-white text-base font-semibold ">Save settings</div>
@@ -52,6 +55,7 @@ import CountdownButton from '../../components/CountdownButton.vue'; // Make sure
 import { useUserStore } from '@/stores/user'
 import * as apiAuth from '@/api/auth.js'
 import * as apiMember from '@/api/member.js'
+import QRCode from 'qrcodejs2-fix';
 
 const password = ref(null);
 const newPassword = ref(null);
@@ -60,10 +64,44 @@ const code = ref(null);
 const userStore = useUserStore()
 
 const isAgreed = ref(false);
+const imgContainer = ref(null);
 
 const router = useRouter()
 
-const handlePwd = async() => {
+const generateCode = (url) => {
+  if (imgContainer.value) {
+    imgContainer.value.innerHTML = "";
+    new QRCode(imgContainer.value, {
+      text: url,
+      width: 200,
+      height: 200,
+      correctLevel: 3,
+    });
+  }
+};
+
+const handleChange = async (newVal) => {
+  console.log('选中状态变化:', newVal)
+  if (newVal) {
+    const result = await apiMember.enableOTPApi()
+    if (result.code == 0) {
+      window.showAlert('enable Two-Factor Authorization')
+      const result2 = await apiMember.getOTPSetupApi()
+      if (result2.code == 0) {
+        generateCode(result2.data.qrCodeUrl)
+      }
+    }
+  } else {
+    const result = await apiMember.disableOTPApi()
+    if (result.code == 0) {
+      window.showAlert('disable Two-Factor Authorization')
+      imgContainer.value.innerHTML = "";
+
+    }
+  }
+}
+
+const handlePwd = async () => {
   if (newPassword.value !== ConfirmPwd.value) {
     window.showAlert('Password confirmation does not match');
     return
