@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import * as apiAuth from '@/api/auth.js'
 import { useRouter } from 'vue-router';
 import Header from '../../components/Header.vue';
@@ -69,7 +69,7 @@ const handleSubmit = async (form) => {
     try {
       const datas = formData.value
       const result = await apiAuth.loginApi(datas)
-      
+
       if (result.code == 0) {
         console.log("data::", result.data)
         userStore.loginSuccess(result.data);
@@ -103,20 +103,17 @@ const handleSubmit = async (form) => {
 
     try {
       if (authShow.value) {
-
-        const result = await apiAuth.sendCodeApi(formData.value)
-        if (result.code == 0) {
-          window.showAlert('send email successful!')
-          authRequired.value = true;
-          formData.value = { ...formData.value, ...form };
-        }
+        authRequired.value = true;
+        formData.value = { ...formData.value, ...form };
       } else {
         const datas = formData.value
         const result = await apiAuth.loginApi(datas)
         if (result.code == 0) {
-          console.log("data::", result.data)
           userStore.loginSuccess(result.data);
           router.push('/home');
+        } else if (result.code == 1004003009) {
+          authRequired.value = true;
+          formData.value = { ...formData.value, ...form };
         }
       }
     } catch (error) {
@@ -124,4 +121,8 @@ const handleSubmit = async (form) => {
     }
   }
 };
+
+onMounted(() => {
+  authShow.value = localStorage.getItem('authShow')
+})
 </script>

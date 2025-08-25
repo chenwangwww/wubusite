@@ -13,6 +13,6 @@ import SubmissionSuccess from '../auth/components/SubmissionSuccess.vue';
 import { useRouter } from 'vue-router';
 const router = useRouter()
 const handleCustomConfirm = () => {
-  router.back()
+  router.push('/usercenter/wallet')
 }
 </script>

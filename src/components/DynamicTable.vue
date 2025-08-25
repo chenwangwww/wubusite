@@ -22,7 +22,7 @@
           </div>
         </div>
 
-        <div class="flex justify-center items-center mt-4 space-x-2">
+        <div class="flex justify-center items-center mt-4 space-x-2" v-if="showPages">
           <button @click="$emit('previous')" :disabled="currentPage <= 1" class="px-4 py-2 border rounded-md"
             :class="{ 'opacity-50 cursor-not-allowed': currentPage <= 1 }">
             Previous
@@ -82,6 +82,10 @@ const props = defineProps({
   loading: {
     type: Boolean,
     default: false
+  },
+  showPages: {
+    type: Boolean,
+    default: true
   }
 });
 

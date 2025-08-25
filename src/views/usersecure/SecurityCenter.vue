@@ -85,6 +85,7 @@ const handleChange = async (newVal) => {
   if (newVal) {
     const result = await apiMember.enableOTPApi()
     if (result.code == 0) {
+      localStorage.setItem('authShow', true)
       window.showAlert('enable Two-Factor Authorization')
       const result2 = await apiMember.getOTPSetupApi()
       if (result2.code == 0) {
@@ -94,6 +95,7 @@ const handleChange = async (newVal) => {
   } else {
     const result = await apiMember.disableOTPApi()
     if (result.code == 0) {
+      localStorage.setItem('authShow', false)
       window.showAlert('disable Two-Factor Authorization')
       imgContainer.value.innerHTML = "";
 

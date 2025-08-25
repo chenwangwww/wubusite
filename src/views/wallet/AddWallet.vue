@@ -1,19 +1,23 @@
 <template>
-  <section class="mt-9 md:ml-16 md:mr-8 mx-4 px-16 bg-white">
+  <section class="mt-9 md:ml-16 md:mr-8 mx-4 md:px-16 px-3 bg-white">
     <div class="py-8 flex gap-x-8 items-center">
-      <img src="../../assets//icons/dashboard/arrow-left.svg" class="w-8" />
-      <span class=" font-bold text-2xl">Add Bank Account</span>
+      <img @click="goBack" src="../../assets//icons/dashboard/arrow-left.svg" class="w-8" />
+      <span class=" font-bold text-2xl">Add Wallet Account</span>
     </div>
     <div class="w-full my-4 mx-6">
-      <div class="text-lg">If you would like to add new bank account information, please fill in the following details.
+      <div class="text-lg">If you would like to add new Wallet account information, please fill in the following details.
       </div>
     </div>
     <div class="flex mx-6 flex-col gap-y-4">
       <TextInput inputId="account-input" label="*Account name" placeholder="Enter Account Name" v-model="accountname" />
       <TextInput inputId="wallet-input" label="*Wallet Address" placeholder="Enter Wallet Address" v-model="walletaddr" />
       <SelectInput :options="cryptoOptions" selectId="crypto-selector"
-        label="*Choose the currency to view detailed deposit information" placeholder="please select currency"
-        v-model="selectedCrypto" />
+      label="*Choose the currency to view detailed deposit information" placeholder="please select currency"
+      v-model="selectedCrypto" />
+      <SelectInput :options="netOptions" selectId="network-selector"
+        label="*Choose the Network" placeholder="please select network"
+        v-model="selectedNet" />
+      <TextInput inputId="remark-input" label="remark" placeholder="please Enter" v-model="remarkDetail" />
     </div>
 
     <div class="flex gap-[2.5rem] w-full my-4 mt-6">
@@ -28,20 +32,44 @@
 import { ref } from 'vue';
 import TextInput from '../../components/TextInput.vue';
 import SelectInput from '../../components/SelectInput.vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+import * as apiWallet from '@/api/cryptoWallet.js';
 
 const accountname = ref(null);
 const walletaddr = ref(null);
 const selectedCrypto = ref(null)
-
+const remarkDetail = ref(null)
+const selectedNet = ref(null)
+const route = useRoute()
 const cryptoOptions = ref([
   { value: 'USDT', text: 'USDT' },
   { value: 'USDC', text: 'USDC' },
 ]);
 
-const router = useRouter()
+const netOptions = ref([
+  { value: 'net1', text: 'net1' },
+  { value: 'net2', text: 'net2' },
+]);
 
-const handleCreateBankAccount = () => {
-  router.push('/usercenter/walletsuccess')
+const router = useRouter()
+const goBack = () => {
+  router.back()
+}
+const handleCreateBankAccount = async() => {
+try {
+    const result = await apiWallet.createWalletApi({
+      label: accountname.value,
+      walletAddress: walletaddr.value,
+      network: selectedNet.value,
+      currency: selectedCrypto.value,
+      remark: remarkDetail.value,
+    });
+    if (result.code === 0) {
+      router.push('/usercenter/walletsuccess')
+    }
+  } catch (error) {
+    console.error('Failed to create wallet account:', error);
+  }
+
 }
 </script>

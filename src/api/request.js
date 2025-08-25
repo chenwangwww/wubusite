@@ -45,7 +45,7 @@ axios.interceptors.response.use(
     (response) => {
         if (response.data.code > 401 || response.data.code === 400) {
             window.showAlert(response.data.msg)
-            return
+            return response
         }
 
         // 判断业务码是否是401，表示令牌失效

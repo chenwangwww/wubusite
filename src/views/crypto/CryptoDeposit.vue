@@ -1,27 +1,19 @@
 <template>
   <section class="mt-9 md:ml-16 md:mr-8 mx-4 px-16 bg-white">
-    <div class="py-8 flex gap-x-8 items-center">
-      <img src="../../assets//icons/dashboard/arrow-left.svg" class="w-8" />
-      <span class=" font-bold text-2xl">Deposit</span>
-    </div>
+    <RouterBack title="Deposit" />
     <div class="w-full bg-[#FFFCEF] py-4 px-8 mb-8">
       <span class="text-[#FF9500] text-base">ATTENTION: Cryptocurrency deposits are processed on the same day,
         contingent upon the successful completion of AML/CFT checks.</span>
     </div>
 
     <div class="flex flex-col gap-y-6 justify-center">
-      <SelectInput :options="cryptoOptions" selectId="crypto-selector"
-        label="*Choose the currency to view detailed deposit information" placeholder="please select currency"
-        v-model="selectedCrypto" />
-      <SelectInput :options="netOptions" selectId="network-selector"
-        label="*Choose the currency to view detailed deposit information" placeholder="please select currency"
-        v-model="selectedNet" />
+      <SelectInput :options="accountOptions" selectId="receivingAccount-selector" label="Select a recipient"
+        placeholder="please select" v-model="receivingAccount" @update:modelValue="handleAccountSelected" />
 
-      <TextInput inputId="amount-input" label="*deposit amount"
-        placeholder="Enter deposit amount" v-model="amount" >
-        <template #suffix>
-        <span style="font-size: 14px;">{{ currency }}</span>
-      </template>
+      <TextInput inputId="amount-input" label="*deposit amount" placeholder="Enter deposit amount" v-model="amount">
+        <template #suffix v-if="currency">
+          <span style="font-size: 14px;">{{ currency }}</span>
+        </template>
       </TextInput>
 
     </div>
@@ -36,8 +28,7 @@
     </div>
 
     <div class="flex gap-[2.5rem] w-full my-4">
-      <div @click="$emit('confirm')"
-        class="flex-1 bg-black rounded-[2.5rem] h-[2.75rem] flex items-center justify-center cursor-pointer">
+      <div class="flex-1 bg-black rounded-[2.5rem] h-[2.75rem] flex items-center justify-center cursor-pointer">
         <div class="text-white font-lato text-base font-semibold leading-[3.875rem] whitespace-nowrap">Submit</div>
       </div>
     </div>
@@ -45,28 +36,27 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import SelectInput from '../../components/SelectInput.vue';
 import UnitInput from '../../components/UnitInput.vue';
 import TextInput from '../../components/TextInput.vue';
 import QRCode from 'qrcodejs2-fix';
 import Clipboard from 'vue-clipboard3';
+import RouterBack from '../../components/RouterBack.vue';
+import * as apiWallet from '@/api/cryptoWallet.js';
 
 const imgContainer = ref(null);
-
-const selectedCrypto = ref(null)
-const selectedNet = ref(null)
+const receivingAccount = ref(null)
+const accountOptions = ref([])
+const accounts = ref([])
 const amount = ref('');
-const currency = ref('USD');
+const currency = ref(null);
+const selectAccount = ref(null)
 
-const cryptoOptions = ref([
-  { value: 'USDT', text: 'USDT' },
-  { value: 'USDC', text: 'USDC' },
-]);
-const netOptions = ref([
-  { value: 'net1', text: 'net1' },
-  { value: 'net2', text: 'net2' },
-]);
+const handleAccountSelected = (id) => {
+  selectAccount.value = accounts.value.filter((item) => item.id == id)[0]
+  currency.value = selectAccount.value.symbol
+}
 
 const generateCode = () => {
   if (imgContainer.value) {
@@ -91,7 +81,29 @@ const copy = async (info) => {
   }
 }
 
+const fetchData = async () => {
+  try {
+    const result = await apiWallet.getWalletListApi({
+      type: 'USER'
+    });
+    if (result.code === 0) {
+      // 获取所有数据并赋值给 allWalletData
+      accounts.value = result.data || [];
+      for (let index = 0; index < accounts.value.length; index++) {
+        const element = accounts.value[index];
+        accountOptions.value.push({
+          value: element.id + '',
+          text: element.label
+        })
+      }
+    }
+  } catch (error) {
+    console.error('Failed to fetch wallet data:', error);
+  }
+};
+
 onMounted(() => {
+  fetchData()
   generateCode();
 });
 </script>

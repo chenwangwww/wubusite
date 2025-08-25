@@ -3,6 +3,7 @@ import pkg from 'mockjs';
 const { Random } = pkg;
 
 export default [
+    // 充值订单列表
     {
         url: '/dev-api/app-api/member/user/funding/deposit/page',
         method: 'get',
@@ -54,6 +55,7 @@ export default [
             };
         }
     },
+    // 提现订单列表
     {
         url: '/dev-api/app-api/member/user/funding/withdraw/page',
         method: 'get',
@@ -105,4 +107,58 @@ export default [
             };
         }
     },
+
+    //提现
+    {
+        url: '/dev-api/app-api/member/user/funding/withdraw',
+        method: 'post',
+        timeout: 1000,
+        response: ({ body }) => {
+            const { amount, currency, currencyType, userAccountId } = body;
+
+            // 模拟验证：检查所有必填字段是否存在且有效
+            if (amount && currency && currencyType && userAccountId) {
+                // 模拟提现成功
+                return {
+                    code: 0,
+                    data: true,
+                    msg: "提现成功"
+                };
+            } else {
+                // 模拟提现失败，通常是因为缺少参数
+                return {
+                    code: 1073741824,
+                    data: false,
+                    msg: "请求参数不完整"
+                };
+            }
+        }
+    },
+
+    //充值
+    {
+        url: '/dev-api/app-api/member/user/funding/deposit',
+        method: 'post',
+        timeout: 1000,
+        response: ({ body }) => {
+            const { amount, currency, currencyType, userAccountId } = body;
+
+            // 模拟验证：检查所有必填字段是否存在且有效
+            if (amount && currency && currencyType && userAccountId) {
+                // 模拟提现成功
+                return {
+                    code: 0,
+                    data: true,
+                    msg: "提现成功"
+                };
+            } else {
+                // 模拟提现失败，通常是因为缺少参数
+                return {
+                    code: 1073741824,
+                    data: false,
+                    msg: "请求参数不完整"
+                };
+            }
+        }
+    }
 ]

@@ -18,3 +18,21 @@ export function depositPageApi(params) {
         params
     })
 }
+
+
+// 提现
+export function withdrawActionApi(data) {
+    return request({
+        url: `/member/user/funding/withdraw`,
+        method: 'post',
+        data
+    })
+}
+// 充值
+export function depositActionApi(data) {
+    return request({
+        url: `/member/user/funding/deposit`,
+        method: 'post',
+        data
+    })
+}
