@@ -19,7 +19,7 @@
       </div>
       <div>
         <button class="bg-[#FF7545] md:px-9 px-6 py-2 rounded-3xl md:mr-6 mr-3">
-          <RouterLink to="/usercenter/bankaccount">Deposit</RouterLink>
+          <RouterLink to="/usercenter/depositcurrency">Deposit</RouterLink>
         </button>
         <button class="bg-black md:px-9 px-6 py-2 rounded-3xl text-white">
           <RouterLink to="/usercenter/withdrawcurrency">Withdraw</RouterLink>

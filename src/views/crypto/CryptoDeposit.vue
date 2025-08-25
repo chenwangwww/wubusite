@@ -84,7 +84,7 @@ const copy = async (info) => {
 const fetchData = async () => {
   try {
     const result = await apiWallet.getWalletListApi({
-      type: 'USER'
+      type: 'SYSTEM'
     });
     if (result.code === 0) {
       // 获取所有数据并赋值给 allWalletData

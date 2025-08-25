@@ -150,4 +150,47 @@ export default [
             };
         }
     },
+    {
+        url: '/dev-api/app-api/market/wubu-bankaccount/list',
+        method: 'get',
+        timeout: 1000,
+        response: ({ query }) => {
+            const success = Math.random() > 0.1; // 10% 的概率失败
+
+            if (success) {
+                const data = [];
+                const bankNames = ["中国银行", "工商银行", "农业银行", "建设银行", "招商银行", "交通银行", "浦发银行"];
+                const names = ["张三", "李四", "王五", "赵六", "钱七"];
+
+                for (let i = 0; i < 13; i++) {
+                    const randomBankName = bankNames[Math.floor(Math.random() * bankNames.length)];
+                    const randomName = names[Math.floor(Math.random() * names.length)];
+                    const fiatType = i % 2 === 0 ? 'USD' : 'AED';
+
+                    data.push({
+                        id: i,
+                        "accountName": randomName,
+                        "accountNumber": `62220200000000${100 + i}`,
+                        "iban": `IBAN${Math.floor(Math.random() * 1000000000)}`,
+                        "swiftCode": `SWIFT${Math.floor(Math.random() * 1000)}`,
+                        "bankName": randomBankName,
+                        "fiatType": fiatType,
+                        "bankAddress": `中国北京市海淀区 ${i + 1} 号`
+                    });
+                }
+
+                return {
+                    code: 0,
+                    data: data,
+                    msg: "获取成功"
+                };
+            } else {
+                return {
+                    "code": 1073741824,
+                    "data": [],
+                    "msg": "获取银行账户列表失败"
+                };
+            }
+        }
+    }
 ]

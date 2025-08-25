@@ -8,7 +8,7 @@
         </div>
         <p class="text-black font-lato text-xl font-bold text-center w-full">Payment security Verify
         </p>
-        <p class="text-black font-lato text-xl font-bold text-center w-full">Please enter the 4-digit code we sent to
+        <p class="text-black font-lato text-xl font-bold text-center w-full">Please enter the 6-digit code we sent to
           your email.</p>
       </div>
       <div class="w-full my-8">
@@ -32,8 +32,8 @@
 
 <script setup>
 import VerificationCodeInput from '@/components/VerificationCodeInput.vue'
-import { ref } from 'vue'
-
+import { onMounted, ref } from 'vue'
+import * as apiMember from '@/api/member.js'
 
 const currentCode = ref('')
 
@@ -59,4 +59,19 @@ const focusCode = () => {
 const verificationCodeInput = ref(null)
 // 添加emit定义
 defineEmits(['confirm']);
+
+const sendCode = async () => {
+  try {
+    const result = await apiMember.sendCodeVeriApi({ 'scene': '4' });
+    if (result.code == 0) {
+      window.showAlert('send email successful!');
+    }
+  } catch (error) {
+    window.showAlert("Failed to send email. Please try again.");
+  }
+}
+
+onMounted(() => {
+  sendCode()
+})
 </script>

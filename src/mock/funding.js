@@ -141,10 +141,10 @@ export default [
         method: 'post',
         timeout: 1000,
         response: ({ body }) => {
-            const { amount, currency, currencyType, userAccountId } = body;
+            const { amount, currency, currencyType } = body;
 
             // 模拟验证：检查所有必填字段是否存在且有效
-            if (amount && currency && currencyType && userAccountId) {
+            if (amount && currency && currencyType) {
                 // 模拟提现成功
                 return {
                     code: 0,

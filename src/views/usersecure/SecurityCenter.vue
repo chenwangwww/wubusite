@@ -39,10 +39,15 @@
       @update:modelValue="handleChange" />
     <div ref="imgContainer" class="my-2 flex justify-center items-center"></div>
 
-    <div
+    <div v-if="secret" class="my-8 flex justify-center gap-x-6 items-center">
+        <p class="font-semibold text-lg">{{ secret }}</p>
+        <img src="../../assets/icons/dashboard/copy.svg" @click="copy(secret)" />
+      </div>
+
+    <!-- <div
       class="bg-[#FF7545] rounded-lg h-[2.75rem] md:h-[3.5rem] flex items-center justify-center cursor-pointer my-4 mx-4">
       <div class="text-white text-base font-semibold ">Save settings</div>
-    </div>
+    </div> -->
   </section>
 </template>
 
@@ -56,6 +61,7 @@ import { useUserStore } from '@/stores/user'
 import * as apiAuth from '@/api/auth.js'
 import * as apiMember from '@/api/member.js'
 import QRCode from 'qrcodejs2-fix';
+import Clipboard from 'vue-clipboard3';
 
 const password = ref(null);
 const newPassword = ref(null);
@@ -65,6 +71,7 @@ const userStore = useUserStore()
 
 const isAgreed = ref(false);
 const imgContainer = ref(null);
+const secret = ref(null)
 
 const router = useRouter()
 
@@ -80,6 +87,17 @@ const generateCode = (url) => {
   }
 };
 
+const copy = async (info) => {
+  const { toClipboard } = Clipboard()
+  try {
+    await toClipboard(info);
+    console.log("copy successful");
+
+  } catch (e) {
+    console.log("copy failed");
+  }
+}
+
 const handleChange = async (newVal) => {
   console.log('选中状态变化:', newVal)
   if (newVal) {
@@ -90,6 +108,7 @@ const handleChange = async (newVal) => {
       const result2 = await apiMember.getOTPSetupApi()
       if (result2.code == 0) {
         generateCode(result2.data.qrCodeUrl)
+        secret.value = result2.data.secret
       }
     }
   } else {
@@ -98,7 +117,7 @@ const handleChange = async (newVal) => {
       localStorage.setItem('authShow', false)
       window.showAlert('disable Two-Factor Authorization')
       imgContainer.value.innerHTML = "";
-
+      secret.value = ''
     }
   }
 }
@@ -125,9 +144,8 @@ const handlePwd = async () => {
 }
 
 const sendCode = async (startCountdownCallback) => {
-
   try {
-    const result = await apiAuth.sendCodeApi({ 'email': userStore.email });
+    const result = await apiMember.sendCodeVeriApi({ 'scene': '3' });
     if (result.code == 0) {
       startCountdownCallback();
       window.showAlert('send email successful!');

@@ -62,3 +62,11 @@ export function getOTPSetupApi(params) {
     params
   })
 }
+
+// 验证验证码
+export function sendCodeVeriApi({scene}) {
+  return request({
+    url: `/member/user/send-code/` + scene,
+    method: 'get',
+  })
+}

@@ -1,5 +1,5 @@
 <template>
-  <section class="mt-9 md:ml-16 md:mr-8 mx-4 md:px-16 px-3 bg-white shadow-[0_4px_20px_0px_rgba(0,0,0,0.1)]">
+  <!-- <section class="mt-9 md:ml-16 md:mr-8 mx-4 md:px-16 px-3 bg-white shadow-[0_4px_20px_0px_rgba(0,0,0,0.1)]">
     <div class="py-8 flex gap-x-8 items-center w-full">
       <span class=" font-bold md:text-2xl text-lg">Verification - Email</span>
       <div class="ml-auto border-[#FF7545] text-[#FF7545] rounded-xl px-4 py-2 text-base font-semibold border-2">
@@ -16,20 +16,22 @@
       <div v-show="showTip" class="mt-3 text-base text-[#FF7545] text-center">The verification link has been sent to
         your email. Please check your Email.</div>
     </div>
-  </section>
+  </section> -->
+
+
   <section class="mt-9 md:ml-16 md:mr-8 mx-4 md:px-16 px-3 bg-white shadow-[0_4px_20px_0px_rgba(0,0,0,0.1)] pb-4">
     <div class="pt-8 pb-4 flex gap-x-8 items-center w-full">
       <span class=" font-bold md:text-2xl text-lg">Verification - Identify</span>
     </div>
-    <div class="md:text-lg text-base">
+    <!-- <div class="md:text-lg text-base">
       Some of the exchange directions may require you to confirm your identity or prove that the account you are paying
       is yours. Please attach the files below to submit to
       our review system.
-    </div>
-    <div class="pt-8 pb-4 flex gap-x-8 items-center w-full">
+    </div> -->
+    <!-- <div class="pt-8 pb-4 flex gap-x-8 items-center w-full">
       <span class=" font-bold md:text-2xl text-lg">Upload Documents</span>
-    </div>
-    <div>
+    </div> -->
+    <!-- <div>
       <div class="grid grid-cols-2 gap-x-3 mb-4">
         <SelectInput :options="typeOptions" selectId="selectedType-selector" label="Document Type"
           placeholder="please select" v-model="selectedType" />
@@ -40,14 +42,14 @@
         placeholder="enter Additional information" v-model="addInfo" />
       <ImageUploader inputId="profile-file" label="Select file" @file-selected="handleImageSelected" />
       <p class="text-base text-[#5c5c5c]">Allowed file types: PNG, JPG, PDF | Max file size: 10 MB</p>
-    </div>
-    <div class="flex gap-[2.5rem] w-full my-4">
+    </div> -->
+    <!-- <div class="flex gap-[2.5rem] w-full my-4">
       <div
         class="flex-1 bg-[#FF7545] rounded-lg h-[2.75rem] md:h-[3.5rem] flex items-center justify-center cursor-pointer"
         @click="openPop">
         <div class="text-white font-lato text-base font-semibold leading-[3.875rem] whitespace-nowrap">Submit</div>
       </div>
-    </div>
+    </div> -->
     <div>
       <div class="pt-8 pb-4 flex gap-x-8 items-center w-full">
         <span class=" font-bold md:text-2xl text-lg">Documents</span>

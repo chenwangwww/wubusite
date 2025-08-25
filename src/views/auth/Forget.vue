@@ -106,7 +106,7 @@ const sendCode = async (startCountdownCallback) => {
   }
 
   try {
-    const result = await apiAuth.sendCodeApi({ 'email': email.value });
+    const result = await apiAuth.sendCodeApi({ 'email': email.value, scene: '2' });
     if (result.code == 0) {
       startCountdownCallback();
       window.showAlert('send email successful!');

@@ -13,15 +13,18 @@
       <p class="text-black font-lato text-base text-center w-full">Please complete the payment as soon as possible and upload the proof of payment</p>
     </div>
     <div class="flex gap-[2.5rem] w-full my-4 pb-9">
-      <div class="flex-1 bg-[#FF7545] rounded-[2.5rem] h-[2.75rem] md:h-[3.5rem] flex items-center justify-center cursor-pointer" @click="handleCreateBankAccount">
-        <div class="text-white font-lato text-base font-semibold leading-[3.875rem] whitespace-nowrap">Upload Now</div>
+      <div class="flex-1 bg-[#FF7545] rounded-[2.5rem] h-[2.75rem] md:h-[3.5rem] flex items-center justify-center cursor-pointer" @click="handleDepositCurrency">
+        <div class="text-white font-lato text-base font-semibold leading-[3.875rem] whitespace-nowrap">Confirm</div>
       </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-
+const router = useRouter()
+const handleDepositCurrency = () => {
+router.push('/usercenter/dashboard');
+}
 </script>

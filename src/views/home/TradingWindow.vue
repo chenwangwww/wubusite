@@ -282,15 +282,8 @@ const handleStepOneConfirm = () => {
 };
 
 const handleStepTwoConfirm = async () => {
-  try {
-    const result = await apiAuth.sendCodeApi({ 'email': userStore.email });
-    if (result.code == 0) {
-      showStepTwo.value = false;
-      showStepThree.value = true;
-    }
-  } catch (error) {
-    window.showAlert("Failed to send email. Please try again.");
-  }
+  showStepTwo.value = false;
+  showStepThree.value = true;
 };
 
 const handleStepThreeConfirm = async (code) => {

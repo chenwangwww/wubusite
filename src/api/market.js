@@ -44,3 +44,12 @@ export function getOrdersApi(params) {
         params
     })
 }
+
+// 获取wubu银行账户列表
+export function getwubuBankAccountsApi(params) {
+    return request({
+        url: `/market/wubu-bankaccount/list`,
+        method: 'get',
+        params
+    })
+}

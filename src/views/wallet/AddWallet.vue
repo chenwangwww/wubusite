@@ -5,23 +5,26 @@
       <span class=" font-bold text-2xl">Add Wallet Account</span>
     </div>
     <div class="w-full my-4 mx-6">
-      <div class="text-lg">If you would like to add new Wallet account information, please fill in the following details.
+      <div class="text-lg">If you would like to add new Wallet account information, please fill in the following
+        details.
       </div>
     </div>
     <div class="flex mx-6 flex-col gap-y-4">
       <TextInput inputId="account-input" label="*Account name" placeholder="Enter Account Name" v-model="accountname" />
-      <TextInput inputId="wallet-input" label="*Wallet Address" placeholder="Enter Wallet Address" v-model="walletaddr" />
+      <TextInput inputId="wallet-input" label="*Wallet Address" placeholder="Enter Wallet Address"
+        v-model="walletaddr" />
       <SelectInput :options="cryptoOptions" selectId="crypto-selector"
-      label="*Choose the currency to view detailed deposit information" placeholder="please select currency"
-      v-model="selectedCrypto" />
-      <SelectInput :options="netOptions" selectId="network-selector"
-        label="*Choose the Network" placeholder="please select network"
-        v-model="selectedNet" />
+        label="*Choose the currency to view detailed deposit information" placeholder="please select currency"
+        v-model="selectedCrypto" />
+      <SelectInput :options="netOptions" selectId="network-selector" label="*Choose the Network"
+        placeholder="please select network" v-model="selectedNet" />
       <TextInput inputId="remark-input" label="remark" placeholder="please Enter" v-model="remarkDetail" />
     </div>
 
     <div class="flex gap-[2.5rem] w-full my-4 mt-6">
-      <div class="flex-1 bg-black rounded-[2.5rem] h-[2.75rem] md:h-[3.5rem] flex items-center justify-center cursor-pointer" @click="handleCreateBankAccount">
+      <div
+        class="flex-1 bg-black rounded-[2.5rem] h-[2.75rem] md:h-[3.5rem] flex items-center justify-center cursor-pointer"
+        @click="handleCreateBankAccount">
         <div class="text-white font-lato text-base font-semibold leading-[3.875rem] whitespace-nowrap">Submit</div>
       </div>
     </div>
@@ -55,8 +58,8 @@ const router = useRouter()
 const goBack = () => {
   router.back()
 }
-const handleCreateBankAccount = async() => {
-try {
+const handleCreateBankAccount = async () => {
+  try {
     const result = await apiWallet.createWalletApi({
       label: accountname.value,
       walletAddress: walletaddr.value,

@@ -75,6 +75,7 @@ const formData = ref({
   password: '',
   confirmPassword: '',
   agreeTerms: false,
+  verifyCode: '',
 
   // 服务类型
   serviceType: '',

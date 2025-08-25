@@ -118,7 +118,7 @@ const handleDelete =  (item) => {
   showPop.value = true
 };
 const handleConfirmD = async () => {
-  const result = await apiWallet.getWalletListApi({
+  const result = await apiWallet.deleteWalletApi({
     id: deleteId
   });
   if (result.code === 0) {
